@@ -224,22 +224,24 @@ repository that serves as the one to rule them all.</p>
 connected to.</p>
 <p>Cloned repositories get an <em>origin</em> remote for free:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git remote -v
-origin  git@github.com:cewing/sea-c15-python.git <span class="o">(</span>fetch<span class="o">)</span>
-origin  git@github.com:cewing/sea-c15-python.git <span class="o">(</span>push<span class="o">)</span>
+origin  https://github.com/PythonCHB/sea-f2-python-sept14.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  https://github.com/PythonCHB/sea-f2-python-sept14.git <span class="o">(</span>push<span class="o">)</span>
 </pre></div>
 </div>
+<p>This shows that the local repo on my machine <em>originated</em> from the one in my gitHub account (the one it was cloned from)</p>
 <p>You can add <em>remotes</em> at will, to connect your <em>local</em> repository to other
 copies of it in different remote locations.</p>
 <p>This allows you to grab changes made to the repository in these other
 locations.</p>
 <p>For our class, we will add an <em>upstream</em> remote to our local copy that points
 to the original copy of the material in the <tt class="docutils literal"><span class="pre">codefellows</span></tt> account.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git remote add upstream https://github.com/codefellows/sea-c15-python.git
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git remote add upstream https://github.com/codefellows/sea-f2-python-sept14.git
+
 <span class="nv">$ </span>git remote -v
-origin  git@github.com:cewing/sea-c15-python.git <span class="o">(</span>fetch<span class="o">)</span>
-origin  git@github.com:cewing/sea-c15-python.git <span class="o">(</span>push<span class="o">)</span>
-upstream    https://github.com/codefellows/sea-c15-python.git <span class="o">(</span>fetch<span class="o">)</span>
-upstream    https://github.com/codefellows/sea-c15-python.git <span class="o">(</span>push<span class="o">)</span>
+origin  https://github.com/PythonCHB/sea-f2-python-sept14.git <span class="o">(</span>fetch<span class="o">)</span>
+origin  https://github.com/PythonCHB/sea-f2-python-sept14.git <span class="o">(</span>push<span class="o">)</span>
+upstream  https://github.com/codefellows/sea-f2-python-sept14.git <span class="o">(</span>fetch<span class="o">)</span>
+upstream  https://github.com/codefellows/sea-f2-python-sept14.git <span class="o">(</span>push<span class="o">)</span>
 </pre></div>
 </div>
 <p>To get the updates from your new remote, you&#8217;ll need first to fetch everything:</p>
@@ -251,30 +253,38 @@ Fetching upstream
 </div>
 <p>Then you can see the branches you have locally available:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git branch -a
-  gh-pages
 * master
-  upstream-master
   remotes/origin/HEAD -&gt; origin/master
-  ...
+  remotes/origin/gh-pages
+  remotes/origin/master
   remotes/upstream/gh-pages
-  ...
+  remotes/upstream/master
 </pre></div>
 </div>
+<p>(the gh-pages branch is used to publish these notes)</p>
 <p>Finally, you can fetch and then merge changes from the upstream master.</p>
 <p>Start by making sure you are on your own master branch:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout master
 </pre></div>
 </div>
-<p>This is really really important.  Take the time to ensure you are where you
+<p>This is <strong>really really</strong> important.  Take the time to ensure you are where you
 think you are.</p>
 <p>Then, fetch the upstream master branch and merge it into your master:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git fetch upstream master
-From github.com:codefellows/sea-c15-python
+From https://github.com/codefellows/sea-f2-python-sept14
  * branch            master     -&gt; FETCH_HEAD
+
 <span class="nv">$ </span>git merge upstream/master
-Updating 137a1db..2119f9b
+Updating 3239de7..9ddbdbb
 Fast-forward
+ Examples/README.rst              |  4 ++++
 ...
+ create mode 100644 Examples/README.rst
+...
+</pre></div>
+</div>
+<p>NOTE: you can do that in one step with:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git pull upstream master
 </pre></div>
 </div>
 <p>Now all the changes from <em>upstream</em> are present in your local clone.</p>
@@ -289,15 +299,16 @@ Counting objects: 44, done.
 $
 </pre></div>
 </div>
+<p>(A simple <tt class="docutils literal"><span class="pre">git</span> <span class="pre">push</span></tt> will usually do the right thing)</p>
 <p>You can incorporate this into your daily workflow:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>git checkout master
-<span class="nv">$ </span>git fetch upstream master
-<span class="nv">$ </span>git merge upstream/master
-<span class="nv">$ </span>git push origin master
-<span class="o">[</span><span class="k">do </span>some work<span class="o">]</span>
-<span class="nv">$ </span>git commit -m <span class="s2">&quot;here is a good commit message&quot;</span>
-<span class="nv">$ </span>git push origin master
-<span class="o">[</span>make a pull request<span class="o">]</span>
+<div class="highlight-python"><div class="highlight"><pre>$ git checkout master
+$ git pull upstream master
+$ git push
+[do some work]
+$ git commit -a
+[add a good commit message]
+$ git push
+[make a pull request]
 </pre></div>
 </div>
 </div>
@@ -353,7 +364,7 @@ conditionals and looping...</p>
 <p>use <tt class="docutils literal"><span class="pre">if..elif..elif..else</span></tt></p>
 <p>(or a dictionary, or subclassing....)</p>
 <p>A way to store a bunch of stuff in order</p>
-<p>called &#8220;array&#8221; in other languages</p>
+<p>Pretty much like an &#8220;array&#8221; or &#8220;vector&#8221; in other languages</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">a_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">9</span><span class="p">]</span>
 <span class="n">a_list_of_strings</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;this&#39;</span><span class="p">,</span> <span class="s">&#39;that&#39;</span><span class="p">,</span> <span class="s">&#39;the&#39;</span><span class="p">,</span> <span class="s">&#39;other&#39;</span><span class="p">]</span>
 </pre></div>
@@ -438,6 +449,7 @@ in ALL_CAPS</p>
 <span class="o">...</span>
 </pre></div>
 </div>
+<p>This is just a convention, but it&#8217;s a good one to follow.</p>
 <p>Take a look at this function definition:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 
@@ -610,7 +622,7 @@ add more lines below for enhancement.</li>
 save your machine from running out of RAM.</p>
 <p>Recursion is especially useful for a particular set of problems.</p>
 <p>For example, take the case of the <em>factorial</em> function.</p>
-<p>In mathmatics, the <em>factorial</em> of an integer is the result of multiplying that
+<p>In mathematics, the <em>factorial</em> of an integer is the result of multiplying that
 integer by every integer smaller than it down to 1.</p>
 <div class="highlight-python"><div class="highlight"><pre>5! == 5 * 4 * 3 * 2 * 1
 </pre></div>
@@ -643,8 +655,8 @@ wrote::</p>
 <ul class="build simple">
 <li>The Booleans: <tt class="docutils literal"><span class="pre">True</span></tt>  and <tt class="docutils literal"><span class="pre">False</span></tt></li>
 <li>&#8220;Something or Nothing&#8221;</li>
+<li><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2002-April/022107.html">http://mail.python.org/pipermail/python-dev/2002-April/022107.html</a></li>
 </ul>
-<p><a class="reference external" href="http://mail.python.org/pipermail/python-dev/2002-April/022107.html">http://mail.python.org/pipermail/python-dev/2002-April/022107.html</a></p>
 <p>Determining Truthiness:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="nb">bool</span><span class="p">(</span><span class="n">something</span><span class="p">)</span>
 </pre></div>
@@ -652,21 +664,24 @@ wrote::</p>
 <ul class="build simple">
 <li><tt class="docutils literal"><span class="pre">None</span></tt></li>
 <li><tt class="docutils literal"><span class="pre">False</span></tt></li>
+<li><strong>Nothing:</strong></li>
 <li>zero of any numeric type: <tt class="docutils literal"><span class="pre">0,</span> <span class="pre">0L,</span> <span class="pre">0.0,</span> <span class="pre">0j</span></tt>.</li>
 <li>any empty sequence, for example, <tt class="docutils literal"><span class="pre">&quot;&quot;,</span> <span class="pre">(),</span> <span class="pre">[]</span></tt>.</li>
 <li>any empty mapping, for example, <tt class="docutils literal"><span class="pre">{}</span></tt> .</li>
 <li>instances of user-defined classes, if the class defines a <tt class="docutils literal"><span class="pre">__nonzero__()</span></tt>
 or <tt class="docutils literal"><span class="pre">__len__()</span></tt> method, when that method returns the integer zero or bool
 value <tt class="docutils literal"><span class="pre">False</span></tt>.</li>
+<li><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></li>
 </ul>
-<p><a class="reference external" href="http://docs.python.org/library/stdtypes.html">http://docs.python.org/library/stdtypes.html</a></p>
 <p class="center large">Everything Else</p>
-<p>Any object in Python, when passed to the <tt class="docutils literal"><span class="pre">bool()</span></tt> type operator, will
+<p>Any object in Python, when passed to the <tt class="docutils literal"><span class="pre">bool()</span></tt> type object, will
 evaluate to <tt class="docutils literal"><span class="pre">True</span></tt> or <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
-<p>When you use the <tt class="docutils literal"><span class="pre">if</span></tt> keyword, it automatically does this to the statement
-provided.</p>
+<p>When you use the <tt class="docutils literal"><span class="pre">if</span></tt> keyword, it automatically does this to the statement provided.</p>
 <p>Which means that this is redundant, and not Pythonic:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">xx</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">do_something</span><span class="p">()</span>
+<span class="c"># or even worse:</span>
+<span class="k">if</span> <span class="nb">bool</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
     <span class="n">do_something</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -749,8 +764,8 @@ not x               return True,
         <span class="k">return</span> <span class="bp">True</span>
 </pre></div>
 </div>
-<p>Though correct, that&#8217;s not a particularly Pythonic way of solving the problem.
-Here&#8217;s a better solution:</p>
+<p>Though correct, that&#8217;s not a particularly Pythonic way of solving the problem.</p>
+<p>Here&#8217;s a better solution:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">sleep_in</span><span class="p">(</span><span class="n">weekday</span><span class="p">,</span> <span class="n">vacation</span><span class="p">):</span>
     <span class="k">return</span> <span class="ow">not</span> <span class="p">(</span><span class="n">weekday</span> <span class="o">==</span> <span class="bp">True</span> <span class="ow">and</span> <span class="n">vacation</span> <span class="o">==</span> <span class="bp">False</span><span class="p">)</span>
 </pre></div>
@@ -794,7 +809,8 @@ three and five print &#8220;FizzBuzz&#8221; instead.</li>
 <li>Re-write a couple of CodingBat exercises, returning the direct boolean results</li>
 </ul>
 </div></blockquote>
-<p>(use whichever you like, or the ones in: <tt class="docutils literal"><span class="pre">code/codingbat.rst</span></tt>  )</p>
+<p>use whichever you like, or the ones in:
+<a class="reference download internal" href="_downloads/codingbat.rst"><tt class="xref download docutils literal"><span class="pre">codingbat.rst</span></tt></a></p>
 </div>
 </div>
 <div class="section" id="code-structure-modules-and-namespaces">
@@ -856,7 +872,7 @@ shared API.</p>
 <p>To a first approximation, you can think of the files you write that end in
 <tt class="docutils literal"><span class="pre">.py</span></tt> as modules.</p>
 <p>A package is a module with other modules in it.</p>
-<p>On a filesystem, this is represented as a folder that contains one or more
+<p>On a filesystem, this is represented as a directory that contains one or more
 <tt class="docutils literal"><span class="pre">.py</span></tt> files, one of which <strong>must</strong> be called <tt class="docutils literal"><span class="pre">__init__.py</span></tt>.</p>
 <p>When you have a package, you can import the package, or any of the modules
 inside it.</p>
@@ -897,8 +913,7 @@ side-effects.</p>
 <li><tt class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">hello.py</span></tt>   &#8211; must be in current working directory</li>
 <li><tt class="docutils literal"><span class="pre">$</span> <span class="pre">python</span> <span class="pre">-m</span> <span class="pre">hello</span></tt>   &#8211; any module on PYTHONPATH anywhere on the system</li>
 <li><tt class="docutils literal"><span class="pre">$</span> <span class="pre">./hello.py</span></tt>        &#8211; put <tt class="docutils literal"><span class="pre">#!/usr/env/python</span></tt>  at top of module (Unix)</li>
-<li><tt class="docutils literal"><span class="pre">run</span> <span class="pre">hello.py</span></tt>     &#8211; at the IPython prompt &#8211; running a module brings the
-names into the interactive namespace</li>
+<li><tt class="docutils literal"><span class="pre">In</span> <span class="pre">[149]:</span> <span class="pre">run</span> <span class="pre">hello.py</span></tt>     &#8211; at the IPython prompt &#8211; running a module brings its names into the interactive namespace</li>
 </ul>
 <p>Like importing, running a module executes all statements at the module level.</p>
 <p>But there&#8217;s an important difference.</p>
@@ -976,7 +991,9 @@ your code.</p>
 <span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span>
 </pre></div>
 </div>
-<p>You wouldn&#8217;t want to import * those &#8211; check out</p>
+<p>You wouldn&#8217;t want to import * those!</p>
+<blockquote>
+<div>&#8211; check out</div></blockquote>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;/foo/bar/baz.txt&#39;</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;/foo/bar&#39;</span><span class="p">,</span> <span class="s">&#39;baz.txt&#39;</span><span class="p">)</span>
 </pre></div>
@@ -985,7 +1002,7 @@ your code.</p>
 </div>
 <div class="section" id="homework">
 <h2>Homework<a class="headerlink" href="#homework" title="Permalink to this headline">¶</a></h2>
-<p>You have two tasks to complete by Wednesday:</p>
+<p>You have two tasks to complete by next class:</p>
 <div class="section" id="task-1">
 <h3>Task 1<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h3>
 <p>The Ackermann function, A(m, n), is defined:</p>
@@ -996,8 +1013,7 @@ your code.</p>
 </pre></div>
 </div>
 <p>See <a class="reference external" href="http://en.wikipedia.org/wiki/Ackermann_function">http://en.wikipedia.org/wiki/Ackermann_function</a>.</p>
-<p>Create a new module called <tt class="docutils literal"><span class="pre">ack.py</span></tt> in your student folder. In that module,
-write a function named <tt class="docutils literal"><span class="pre">ack</span></tt> that performs Ackermann&#8217;s function.</p>
+<p>Create a new module called <tt class="docutils literal"><span class="pre">ack.py</span></tt> in a <tt class="docutils literal"><span class="pre">session02</span></tt> folder in your student folder. In that module, write a function named <tt class="docutils literal"><span class="pre">ack</span></tt> that performs Ackermann&#8217;s function.</p>
 <ul class="simple">
 <li>Write a good <tt class="docutils literal"><span class="pre">docstring</span></tt> for your function according to PEP 257.</li>
 <li>Ackermann&#8217;s function is not defined for input values less than 0.  Validate
@@ -1014,8 +1030,8 @@ If they all pass, print &#8220;All Tests Pass&#8221; as the result.</p>
 your implementation. Include good commit messages that explain concisely both
 <em>what</em> you are doing and <em>why</em>.</p>
 <p>When you are finished, push your changes to your fork of the class repository
-in GitHub. Then make a pull request and submit your assignment in canvas.</p>
-<div class="highlight-python"><div class="highlight"><pre>- Adapted from &quot;Think Python&quot;: Chapter 6, excercise 5.
+in GitHub. Then make a pull request and submit your assignment in Canvas.</p>
+<div class="highlight-python"><div class="highlight"><pre>- Adapted from &quot;Think Python&quot;: Chapter 6, exercise 5.
 </pre></div>
 </div>
 </div>
@@ -1027,9 +1043,7 @@ This gives us:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="o">...</span>
 </pre></div>
 </div>
-<p>Create a new module <tt class="docutils literal"><span class="pre">series.py</span></tt> in your student folder. In it, add a function
-called <tt class="docutils literal"><span class="pre">fibonacci</span></tt>. The function should have one parameter <tt class="docutils literal"><span class="pre">n</span></tt>. The
-function should return the <tt class="docutils literal"><span class="pre">nth</span></tt> value in the fibonacci series.</p>
+<p>Create a new module <tt class="docutils literal"><span class="pre">series.py</span></tt> in the <tt class="docutils literal"><span class="pre">session02</span></tt> folder in your student folder. In it, add a function called <tt class="docutils literal"><span class="pre">fibonacci</span></tt>. The function should have one parameter <tt class="docutils literal"><span class="pre">n</span></tt>. The function should return the <tt class="docutils literal"><span class="pre">nth</span></tt> value in the fibonacci series.</p>
 <p>Ensure that your function has a well-formed <tt class="docutils literal"><span class="pre">docstring</span></tt></p>
 <p>The <a class="reference external" href="http://en.wikipedia.org/wiki/Lucas_number">Lucas Numbers</a> are a related series of integers that start with the
 values 2 and 1 rather than 0 and 1. The resulting series looks like this:</p>
@@ -1045,7 +1059,7 @@ formula.</p>
 optional parameters. The required parameter will determine which element in the
 series to print. The two optional parameters will have default values of 0 and
 1 and will determine the first two values for the series to be produced.</p>
-<p>Calling this function with no optional paramters will produce numbers from the
+<p>Calling this function with no optional parameters will produce numbers from the
 <em>fibonacci series</em>.  Calling it with the optional arguments 2 and 1 will
 produce values from the <em>lucas numbers</em>. Other values for the optional
 parameters will produce other series.</p>
