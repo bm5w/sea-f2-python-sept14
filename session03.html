@@ -88,7 +88,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#mutability">Mutability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#mutable-sequence-methods">Mutable Sequence Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Iteration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#string-formatting">String Formatting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#string-features">String Features</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#one-last-trick">One Last Trick</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#homework">Homework</a></li>
 </ul>
@@ -232,9 +232,10 @@
 <li>tuples</li>
 <li>bytearrays</li>
 <li>buffers</li>
-<li>xrange objects</li>
+<li>array.arrays</li>
+<li>xrange objects (almost)</li>
 </ul>
-<p>For this class, you won&#8217;t see much beyond the string types, lists, tuples.</p>
+<p>For this class, you won&#8217;t see much beyond the string types, lists, tuples &#8211; the rest are pretty special purpose.</p>
 <p>But what we say today applies to all sequences (with minor caveats)</p>
 </div>
 <div class="section" id="indexing">
@@ -301,7 +302,31 @@ original sequence.</p>
 </pre></div>
 </div>
 <p>Either <tt class="docutils literal"><span class="pre">0</span></tt> or <tt class="docutils literal"><span class="pre">len(s)</span></tt> will be assumed, respectively.</p>
-<p>As a corollary: <tt class="docutils literal"><span class="pre">seq[:b]</span> <span class="pre">+</span> <span class="pre">seq[b:]</span> <span class="pre">==</span> <span class="pre">seq</span></tt>.</p>
+<p>You can combine this with the negative index to get the end of a sequence:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="n">s</span> <span class="o">=</span> <span class="s">u&#39;this_could_be_a_filename.txt&#39;</span>
+<span class="gp">In [5]: </span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="gh">Out[5]: </span><span class="go">u&#39;this_could_be_a_filename&#39;</span>
+<span class="gp">In [6]: </span><span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+<span class="gh">Out[6]: </span><span class="go">u&#39;.txt&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="why-start-from-zero">
+<h3>Why start from zero?<a class="headerlink" href="#why-start-from-zero" title="Permalink to this headline">¶</a></h3>
+<p>Python indexing feels &#8216;weird&#8217; to some folks &#8211; particularly those that don&#8217;t come with a background in the C family of languages.</p>
+<p>Why is the &#8220;first&#8221; item indexed with zero?</p>
+<p>Why is the last item in the slice <strong>not</strong> included?</p>
+<p>Because these lead to some nifty properties:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="n">a</span><span class="p">:</span><span class="n">b</span><span class="p">])</span> <span class="o">==</span> <span class="n">b</span><span class="o">-</span><span class="n">a</span>
+
+<span class="n">seq</span><span class="p">[:</span><span class="n">b</span><span class="p">]</span> <span class="o">+</span> <span class="n">seq</span><span class="p">[</span><span class="n">b</span><span class="p">:]</span> <span class="o">==</span> <span class="n">seq</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">[:</span><span class="n">b</span><span class="p">])</span> <span class="o">==</span> <span class="n">b</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="o">-</span><span class="n">b</span><span class="p">:])</span> <span class="o">==</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>There are very many fewer &#8220;off by one&#8221; errors as a result.</p>
 <p>Slicing takes a third argument, <tt class="docutils literal"><span class="pre">step</span></tt> which controls which items are
 returned:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [289]: </span><span class="n">string</span> <span class="o">=</span> <span class="s">u&quot;a fairly long string&quot;</span>
@@ -397,14 +422,14 @@ concise code:</p>
 <tt class="docutils literal"><span class="pre">len(s)</span> <span class="pre">-</span> <span class="pre">1</span></tt>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [38]: </span><span class="n">count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 <span class="gp">In [39]: </span><span class="n">s</span><span class="p">[</span><span class="n">count</span><span class="p">]</span>
-<span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">IndexError</span><span class="g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="gt">------------------------------------------------------------</span>
+<span class="ne">IndexError</span><span class="g-Whitespace">                </span>Traceback (most recent call last)
 <span class="nn">&lt;ipython-input-39-5a33b9d3e525&gt;</span> in <span class="ni">&lt;module&gt;</span><span class="nt">()</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">s</span><span class="p">[</span><span class="n">count</span><span class="p">]</span>
-
 <span class="ne">IndexError</span>: string index out of range
 </pre></div>
 </div>
+<p>Even better: use <tt class="docutils literal"><span class="pre">s[-1]</span></tt></p>
 </div>
 <div class="section" id="miscellaneous">
 <h3>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h3>
@@ -639,12 +664,17 @@ whatever condition caused it to be updated.</p>
 </div>
 <p>Why?</p>
 <p>Easy container setup, or deadly trap?</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [62]: </span><span class="n">bins</span> <span class="o">=</span> <span class="p">[[]]</span> <span class="o">*</span> <span class="mi">5</span>
-<span class="gp">In [63]: </span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s">u&#39;one&#39;</span><span class="p">,</span> <span class="s">u&#39;three&#39;</span><span class="p">,</span> <span class="s">u&#39;rough&#39;</span><span class="p">,</span> <span class="s">u&#39;sad&#39;</span><span class="p">,</span> <span class="s">u&#39;goof&#39;</span><span class="p">]</span>
-<span class="gp">In [64]: </span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
-<span class="gp">   ....: </span>    <span class="n">bins</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+<p>(note: you can nest lists to make a 2D-ish array)</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="n">bins</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[]</span> <span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>
+
+<span class="gp">In [14]: </span><span class="n">bins</span>
+<span class="gh">Out[14]: </span><span class="go">[[], [], [], [], []]</span>
+
+<span class="gp">In [15]: </span><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="s">u&#39;one&#39;</span><span class="p">,</span> <span class="s">u&#39;three&#39;</span><span class="p">,</span> <span class="s">u&#39;rough&#39;</span><span class="p">,</span> <span class="s">u&#39;sad&#39;</span><span class="p">,</span> <span class="s">u&#39;goof&#39;</span><span class="p">]</span>
+
+<span class="gp">In [16]: </span><span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+<span class="gp">   ....: </span>    <span class="n">bins</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
 <span class="gp">   ....:</span>
-<span class="gp">In [65]:</span>
 </pre></div>
 </div>
 <p>So, what is going to be in <tt class="docutils literal"><span class="pre">bins</span></tt> now?</p>
@@ -659,8 +689,7 @@ whatever condition caused it to be updated.</p>
 </div>
 <p>We multiplied a sequence containing a single <em>mutable</em> object.</p>
 <p>We got a list containing five pointers to a single <em>mutable</em> object.</p>
-<p>Watch out especially for passing mutable objects as default values for function
-parameters:</p>
+<p>Watch out especially for passing mutable objects as default values for function parameters:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [71]: </span><span class="k">def</span> <span class="nf">accumulator</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="nb">list</span><span class="o">=</span><span class="p">[]):</span>
 <span class="gp">   ....: </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">count</span><span class="p">):</span>
 <span class="gp">   ....: </span>        <span class="nb">list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
@@ -676,15 +705,20 @@ parameters:</p>
 </div>
 <div class="section" id="mutable-sequence-methods">
 <h2>Mutable Sequence Methods<a class="headerlink" href="#mutable-sequence-methods" title="Permalink to this headline">¶</a></h2>
-<p class="left">In addition to all the methods supported by sequences we&#8217;ve seen above, mutable
-sequences (the List), have a number of other methods that are used to change
-the list.</p>
-<p>You&#8217;ve already seen changing a single element of a list by assignment:</p>
+<p class="left">In addition to all the methods supported by sequences we&#8217;ve seen above, mutable sequences (the List), have a number of other methods that are
+used to change the list.</p>
+<p>You can find all these in the Standard Library Documentation:</p>
+<p><a class="reference external" href="http://www.python.org/2/library/stdtypes.html#mutable-sequence-types">http://www.python.org/2/library/stdtypes.html#mutable-sequence-types</a></p>
+<div class="section" id="assignment">
+<h3>Assignment<a class="headerlink" href="#assignment" title="Permalink to this headline">¶</a></h3>
+<p>You&#8217;ve already seen changing a single element of a list by assignment.</p>
+<p>Pretty much the same as &#8220;arrays&#8221; in most languages:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [100]: </span><span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
 <span class="gp">In [101]: </span><span class="nb">list</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="gp">In [102]: </span><span class="nb">list</span>
 <span class="gh">Out[102]: </span><span class="go">[1, 2, 10]</span>
 </pre></div>
+</div>
 </div>
 <div class="section" id="growing-the-list">
 <h3>Growing the List<a class="headerlink" href="#growing-the-list" title="Permalink to this headline">¶</a></h3>
@@ -994,7 +1028,6 @@ allow iteration to continue:</p>
 <span class="gp">   .....: </span>        <span class="k">break</span>
 <span class="gp">   .....: </span><span class="k">else</span><span class="p">:</span>
 <span class="gp">   .....: </span>    <span class="k">print</span> <span class="s">&#39;finished&#39;</span>
-<span class="gp">   .....:</span>
 <span class="go">finished</span>
 <span class="gp">In [148]: </span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
 <span class="gp">   .....: </span>    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
@@ -1002,10 +1035,10 @@ allow iteration to continue:</p>
 <span class="gp">   .....: </span>        <span class="k">break</span>
 <span class="gp">   .....: </span><span class="k">else</span><span class="p">:</span>
 <span class="gp">   .....: </span>    <span class="k">print</span> <span class="s">&#39;finished&#39;</span>
-<span class="gp">   .....:</span>
 <span class="go">5</span>
 </pre></div>
 </div>
+<p>This is a really nice unique Python feature!</p>
 </div>
 <div class="section" id="while-loops">
 <h3>While Loops<a class="headerlink" href="#while-loops" title="Permalink to this headline">¶</a></h3>
@@ -1016,12 +1049,12 @@ allow iteration to continue:</p>
    <span class="n">in_the_body</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">while</span></tt>  is more general than <tt class="docutils literal"><span class="pre">for</span></tt>  &#8211;</p>
-<p>you can always express for as while,</p>
+<p><tt class="docutils literal"><span class="pre">while</span></tt>  is more general than <tt class="docutils literal"><span class="pre">for</span></tt></p>
+<p>&#8211; you can always express <tt class="docutils literal"><span class="pre">for</span></tt> as <tt class="docutils literal"><span class="pre">while</span></tt>,</p>
 <p>but not always vice-versa.</p>
 <p><tt class="docutils literal"><span class="pre">while</span></tt>  is more error-prone &#8211; requires some care to terminate</p>
 <p>loop body must make progress, so condition can become <tt class="docutils literal"><span class="pre">False</span></tt></p>
-<p>potential error: infinite loops:</p>
+<p>potential error &#8211; infinite loops:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
     <span class="k">print</span> <span class="n">i</span>
@@ -1067,9 +1100,9 @@ internal flow control.</p>
 loop terminates normally (no <tt class="docutils literal"><span class="pre">break</span></tt>)</p>
 </div>
 </div>
-<div class="section" id="string-formatting">
-<h2>String Formatting<a class="headerlink" href="#string-formatting" title="Permalink to this headline">¶</a></h2>
-<p>Fun with Strings</p>
+<div class="section" id="string-features">
+<h2>String Features<a class="headerlink" href="#string-features" title="Permalink to this headline">¶</a></h2>
+<p class="center large">Fun with Strings</p>
 <div class="section" id="manipulations">
 <h3>Manipulations<a class="headerlink" href="#manipulations" title="Permalink to this headline">¶</a></h3>
 <p><tt class="docutils literal"><span class="pre">split</span></tt> and <tt class="docutils literal"><span class="pre">join</span></tt>:</p>
@@ -1164,8 +1197,7 @@ loop terminates normally (no <tt class="docutils literal"><span class="pre">brea
 <span class="gh">Out[193]: </span><span class="go">u&#39;Hi, Bob. Howzit, Bob?&#39;</span>
 </pre></div>
 </div>
-<p>In more recent versions of Python (2.6+) this is <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#str.format">being phased out</a> in favor of
-the <tt class="docutils literal"><span class="pre">.format()</span></tt> method on strings.</p>
+<p>In more recent versions of Python (2.6+) this is <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#str.format">being phased out</a> in favor of the <tt class="docutils literal"><span class="pre">.format()</span></tt> method on strings.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [194]: </span><span class="s">u&quot;Hello, {}, how&#39;s your {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">u&quot;Bob&quot;</span><span class="p">,</span> <span class="s">u&quot;wife&quot;</span><span class="p">)</span>
 <span class="gh">Out[194]: </span><span class="go">u&quot;Hello, Bob, how&#39;s your wife&quot;</span>
 <span class="gp">In [195]: </span><span class="s">u&quot;Hi, {name}. How&#39;s your {relation}?&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">u&#39;Bob&#39;</span><span class="p">,</span> <span class="n">relation</span><span class="o">=</span><span class="s">u&#39;wife&#39;</span><span class="p">)</span>
@@ -1180,8 +1212,8 @@ specifying all sorts of options.</p>
 </div>
 <div class="section" id="one-last-trick">
 <h2>One Last Trick<a class="headerlink" href="#one-last-trick" title="Permalink to this headline">¶</a></h2>
-<p class="left">For some of your homework, you&#8217;ll need to interact with a user at the command
-line.</p>
+<p class="left">For some of your homework, you&#8217;ll need to interact with a user at the
+command line.</p>
 <p class="left">There&#8217;s a nice builtin function to do this - <tt class="docutils literal"><span class="pre">raw_input</span></tt>:</p>
 <div class="left highlight-python"><div class="highlight"><pre><span class="n">In</span> <span class="p">[</span><span class="mi">196</span><span class="p">]:</span> <span class="n">fred</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;type something--&gt;&#39;</span><span class="p">)</span>
 <span class="nb">type</span> <span class="n">something</span><span class="o">--&gt;</span><span class="p">;</span><span class="n">alksdjf</span>
@@ -1198,15 +1230,15 @@ allowing you to bind that input to a symbol.</p>
 <h3>Task 1<a class="headerlink" href="#task-1" title="Permalink to this headline">¶</a></h3>
 <p>List Lab (after <a class="reference external" href="http://www.upriss.org.uk/python/session5.html">http://www.upriss.org.uk/python/session5.html</a>)</p>
 <p>In your student folder, create a new file called <tt class="docutils literal"><span class="pre">list_lab.py</span></tt>.</p>
-<p>The file should be an executable python script. That is to say that one should
-be able to run the script directly like so:</p>
+<p>The file should be an executable python script. That is to say that one
+should be able to run the script directly like so:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./list_lab.py
 </pre></div>
 </div>
 <p>Add the file to your clone of the repository and commit changes frequently
 while working on the following tasks. When you are done, push your changes to
 GitHub and issue a pull request.</p>
-<p>When the script is run. it should accomplish the following four series of
+<p>When the script is run, it should accomplish the following four series of
 actions:</p>
 <ul class="simple">
 <li>Create a list that contains &#8220;Apples&#8221;, &#8220;Pears&#8221;, &#8220;Oranges&#8221; and &#8220;Peaches&#8221;.</li>
@@ -1262,19 +1294,16 @@ work properly.</p>
 <p>There is a &#8220;short-cut&#8221; available that will help you accomplish this task. Some
 spelunking in <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#string-methods">the documentation for strings</a> should help you to find it. If
 you do find it, using it is completely fair game.</p>
-<p>As usual, add your new file to your local clone right away.  Make commits early
-and often and include commit messages that are descriptive and concise.</p>
+<p>As usual, add your new file to your local clone right away.  Make commits early and often and include commit messages that are descriptive and concise.</p>
 <p>When you are done, push your changes to github and issue a pull request.</p>
 </div>
 <div class="section" id="task-3">
 <h3>Task 3<a class="headerlink" href="#task-3" title="Permalink to this headline">¶</a></h3>
-<p>Mail Room</p>
+<p>&#8220;Mail Room&#8221;</p>
 <p>You work in the mail room at a local charity. Part of your job is to write
-incredibly boring, repetetive emails thanking your donors for their generous
-gifts. You are tired of doing this over an over again, so you&#8217;ve decided to let
-Python help you out of a jam.</p>
-<p>Write a small command-line script called <tt class="docutils literal"><span class="pre">mailroom.py</span></tt>.  As with Task 1, This
-script should be executable. The script should accomplish the following goals:</p>
+incredibly boring, repetitive emails thanking your donors for their generous
+gifts. You are tired of doing this over an over again, so you&#8217;ve decided to let Python help you out of a jam.</p>
+<p>Write a small command-line script called <tt class="docutils literal"><span class="pre">mailroom.py</span></tt>.  As with Task 1, This script should be executable. The script should accomplish the following goals:</p>
 <ul class="simple">
 <li>It should have a data structure that holds a list of your donors and a
 history of the amounts they have donated. This structure should be populated
@@ -1314,18 +1343,18 @@ above and below)</li>
 to the original prompt.</li>
 <li>From the original prompt, the user should be able to quit the script cleanly</li>
 </ul>
-<p>First, factor your script into separate functions. Each of the above tasks can
-be accomplished by a series of steps.  Write discreet functions that accomplish
-individual steps and call them.</p>
+<p>First, factor your script into separate functions. Each of the above
+tasks can be accomplished by a series of steps.  Write discreet functions
+that accomplish individual steps and call them.</p>
 <p>Second, use loops to control the logical flow of your program. Interactive
 programs are a classic use-case for the <tt class="docutils literal"><span class="pre">while</span></tt> loop.</p>
 <p>Put the functions you write into the script at the top.</p>
 <p>Put your main interaction into an <tt class="docutils literal"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">'__main__'</span></tt> block.</p>
 <p>Finally, use only functions and the basic Python data types you&#8217;ve learned
-about so far. There is no need to go any farther that that for this assignment.</p>
-<p>As always, put the new file in your student directory and add it to your clone
-early. Make frequent commits with good, clear messages about what you are
-doing and why.</p>
+about so far. There is no need to go any farther than that for this assignment.</p>
+<p>As always, put the new file in your student directory in a <tt class="docutils literal"><span class="pre">session03</span></tt>
+directory, and add it to your clone early. Make frequent commits with
+good, clear messages about what you are doing and why.</p>
 <p>When you are done, push your changes and make a pull request.</p>
 </div>
 </div>
