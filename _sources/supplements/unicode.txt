@@ -40,7 +40,7 @@ Enter Unicode
 --------------
 
 The Unicode idea is pretty simple:
-  * one "code point" for all characters in all languages
+* one "code point" for all characters in all languages
 
 But how do you express that in bytes?
   * Early days: we can fit all the code points in a two byte integer (65536 characters)

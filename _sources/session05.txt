@@ -8,7 +8,6 @@ Session Five: Advanced Argument passing, List and Dict Comprehensions, Lambda an
 ********************************************************************************************************
 
 
-
 ================
 Review/Questions
 ================
@@ -23,11 +22,33 @@ Review of Previous Class
 
 Homework review
 ---------------
-  
-  Homework Questions?
-  
-  My Solutions to the dict/set lab:
-    
+
+Homework Questions?
+
+My Solutions to the dict/set lab, and some others in the class repo in: ``Solutions``
+
+A few tidbits:
+
+.. nextslide:: Sorting stuff in dictionaries:
+
+dicts aren't sorted, so what if you want to do something in a sorted way?
+
+The "old" way:
+
+.. code-block:: python
+
+  keys = d.keys()
+  keys.sort()
+  for key in keys:
+      ...
+
+.. code-block:: python
+
+    collections.OrderedDict
+
+    sorted()
+
+(demo)
 
 =========================
 Advanced Argument Passing
@@ -56,7 +77,7 @@ When defining a function, you can specify only what you need -- in any order
 
 A Common Idiom:
 
-.. code-block:: python    
+.. code-block:: python
 
     def fun(x, y=None):
         if y is None:
