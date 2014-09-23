@@ -691,7 +691,8 @@ It keeps only those for which the function is True</p>
 <h3>List comprehensions<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Note: this is a bit of a &#8220;backwards&#8221; exercise &#8211;
 we show you code, you figure out what it does.</p>
-<p>As a result, not much to submit &#8211; but so we can give you credit, submit a file with a solution to the final problem.</p>
+<p>As a result, not much to submit &#8211; but so we can give you credit, submit
+a file with a solution to the final problem.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">feast</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;lambs&#39;</span><span class="p">,</span> <span class="s">&#39;sloths&#39;</span><span class="p">,</span> <span class="s">&#39;orangutans&#39;</span><span class="p">,</span> <span class="s">&#39;breakfast cereals&#39;</span><span class="p">,</span> <span class="s">&#39;fruit bats&#39;</span><span class="p">]</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">comprehension</span> <span class="o">=</span> <span class="p">[</span><span class="n">delicacy</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">delicacy</span> <span class="ow">in</span> <span class="n">feast</span><span class="p">]</span>
@@ -706,9 +707,6 @@ we show you code, you figure out what it does.</p>
 </pre></div>
 </div>
 <p>(figure it out before you try it)</p>
-<ol class="arabic simple" start="2">
-<li>Filtering lists with list comprehensions</li>
-</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">feast</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;spam&#39;</span><span class="p">,</span> <span class="s">&#39;sloths&#39;</span><span class="p">,</span> <span class="s">&#39;orangutans&#39;</span><span class="p">,</span> <span class="s">&#39;breakfast cereals&#39;</span><span class="p">,</span>
 <span class="go">            &#39;fruit bats&#39;]</span>
 
@@ -724,9 +722,6 @@ we show you code, you figure out what it does.</p>
 </pre></div>
 </div>
 <p>(figure it out first!)</p>
-<ol class="arabic simple" start="3">
-<li>Unpacking tuples in list comprehensions</li>
-</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">list_of_tuples</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;lumberjack&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;inquisition&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;spam&#39;</span><span class="p">)]</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">comprehension</span> <span class="o">=</span> <span class="p">[</span> <span class="n">skit</span> <span class="o">*</span> <span class="n">number</span> <span class="k">for</span> <span class="n">number</span><span class="p">,</span> <span class="n">skit</span> <span class="ow">in</span> <span class="n">list_of_tuples</span> <span class="p">]</span>
@@ -740,9 +735,6 @@ we show you code, you figure out what it does.</p>
 <span class="go">???</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li>Double list comprehension</li>
-</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">list_of_eggs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;poached egg&#39;</span><span class="p">,</span> <span class="s">&#39;fried egg&#39;</span><span class="p">]</span>
 
 <span class="gp">&gt;&gt;&gt; </span><span class="n">list_of_meats</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;lite spam&#39;</span><span class="p">,</span> <span class="s">&#39;ham spam&#39;</span><span class="p">,</span> <span class="s">&#39;fried spam&#39;</span><span class="p">]</span>
@@ -758,9 +750,6 @@ we show you code, you figure out what it does.</p>
 <span class="go">???</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="5">
-<li>Creating a set with set comprehension</li>
-</ol>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">comprehension</span> <span class="o">=</span> <span class="p">{</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s">&#39;aabbbcccc&#39;</span><span class="p">}</span>
 </pre></div>
 </div>
@@ -769,51 +758,38 @@ we show you code, you figure out what it does.</p>
 <span class="go">???</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="6">
-<li>Creating a dictionary with dictionary comprehension</li>
-</ol>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_of_weapons</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;first&#39;</span><span class="p">:</span> <span class="s">&#39;fear&#39;</span><span class="p">,</span> <span class="s">&#39;second&#39;</span><span class="p">:</span> <span class="s">&#39;surprise&#39;</span><span class="p">,</span>
-<span class="go">            &#39;third&#39;:&#39;ruthless efficiency&#39;, &#39;forth&#39;:&#39;fanatical devotion&#39;,</span>
-<span class="go">            &#39;fifth&#39;: None}</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_comprehension</span> <span class="o">=</span> <span class="p">{</span> <span class="n">k</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">weapon</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">weapon</span> <span class="ow">in</span> <span class="n">dict_of_weapons</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">weapon</span><span class="p">}</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">dict_of_weapons</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;first&#39;</span><span class="p">:</span> <span class="s">&#39;fear&#39;</span><span class="p">,</span>
+<span class="go">                       &#39;second&#39;: &#39;surprise&#39;,</span>
+<span class="go">                       &#39;third&#39;:&#39;ruthless efficiency&#39;,</span>
+<span class="go">                       &#39;forth&#39;:&#39;fanatical devotion&#39;,</span>
+<span class="go">                       &#39;fifth&#39;: None}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dict_comprehension</span> <span class="o">=</span> \
+<span class="go">{ k.upper(): weapon for k, weapon in dict_of_weapons.iteritems() if weapon}</span>
 </pre></div>
 </div>
 <p>What is the output of:</p>
-<div class="highlight-python"><div class="highlight"><pre>
-</pre></div>
-</div>
 <div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;first&#39;</span> <span class="ow">in</span> <span class="n">dict_comprehension</span>
-<span class="go">        ???</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;FIRST&#39;</span> <span class="ow">in</span> <span class="n">dict_comprehension</span>
 <span class="go">???</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dict_of_weapons</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;FIRST&#39;</span> <span class="ow">in</span> <span class="n">dict_comprehension</span>
 <span class="go">???</span>
-</pre></div>
-</div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dict_comprehension</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dict_of_weapons</span><span class="p">)</span>
+<span class="go">???</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">dict_comprehension</span><span class="p">)</span>
 <span class="go">???</span>
 </pre></div>
 </div>
 <p>See also:</p>
 <p><a class="reference external" href="https://github.com/gregmalcolm/python_koans">https://github.com/gregmalcolm/python_koans</a></p>
 <p><a class="reference external" href="https://github.com/gregmalcolm/python_koans/blob/master/python2/koans/about_comprehension.py">https://github.com/gregmalcolm/python_koans/blob/master/python2/koans/about_comprehension.py</a></p>
-<ol class="arabic simple" start="7">
-<li>Count even numbers</li>
-</ol>
 <p>(submit this one to gitHub for credit on this assignment)</p>
 <p>This is from CodingBat &#8220;count_evens&#8221; (<a class="reference external" href="http://codingbat.com/prob/p189616">http://codingbat.com/prob/p189616</a>)</p>
-<p><em>Using list comprehension</em>, return the number of even ints in the given array.</p>
+<p><em>Using a list comprehension</em>, return the number of even ints in the given array.</p>
 <p>Note: the % &#8220;mod&#8221; operator computes the remainder, e.g. <tt class="docutils literal"><span class="pre">5</span> <span class="pre">%</span> <span class="pre">2</span></tt> is 1.</p>
-<div class="highlight-python"><div class="highlight"><pre>count_evens([2, 1, 2, 3, 4]) → 3
+<div class="highlight-python"><div class="highlight"><pre><span class="n">count_evens</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span>
 
-count_evens([2, 2, 0]) → 3
+<span class="n">count_evens</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">3</span>
 
-count_evens([1, 3, 5]) → 0
+<span class="n">count_evens</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span>
 </pre></div>
 </div>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">count_evens</span><span class="p">(</span><span class="n">nums</span><span class="p">):</span>
@@ -822,8 +798,9 @@ count_evens([1, 3, 5]) → 0
 </div>
 </div>
 <div class="section" id="dict-and-set-comprehensions">
-<h3>dict and set comprehensions<a class="headerlink" href="#dict-and-set-comprehensions" title="Permalink to this headline">¶</a></h3>
-<p>Let&#8217;s revisiting the dict/set lab &#8211; see how much you can do with comprehensions instead.</p>
+<h3><tt class="docutils literal"><span class="pre">dict</span></tt> and <tt class="docutils literal"><span class="pre">set</span></tt> comprehensions<a class="headerlink" href="#dict-and-set-comprehensions" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s revisiting the dict/set lab &#8211; see how much you can do with
+comprehensions instead.</p>
 <p>Specifically,  look at these:</p>
 <p>First a slightly bigger, more interesting (or at least bigger..) dict:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">food_prefs</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;name&quot;</span><span class="p">:</span> <span class="s">u&quot;Chris&quot;</span><span class="p">,</span>
@@ -834,29 +811,31 @@ count_evens([1, 3, 5]) → 0
               <span class="s">u&quot;pasta&quot;</span><span class="p">:</span> <span class="s">u&quot;lasagna&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<ol class="arabic simple">
-<li>Print the dict by passing it to a string format method, so that you get something like:</li>
-</ol>
-<p>&#8220;Chris is from Seattle, and he likes chocolate cake, mango fruit, greek salad, and lasagna pasta&#8221;</p>
-<ol class="arabic simple" start="2">
-<li>Using a list comprehension, build a dictionary of numbers from zero to fifteen and the hexadecimal equivalent (string is fine).</li>
+<p>1. Print the dict by passing it to a string format method, so that you
+get something like:</p>
+<blockquote>
+<div>&#8220;Chris is from Seattle, and he likes chocolate cake, mango fruit,</div></blockquote>
+<p>greek salad, and lasagna pasta&#8221;</p>
+<p>2. Using a list comprehension, build a dictionary of numbers from zero
+to fifteen and the hexadecimal equivalent (string is fine).</p>
+<ol class="arabic simple" start="3">
 <li>Do the previous entirely with a dict comprehension &#8211; should be a one-liner</li>
-<li>Using the dictionary from item 1: Make a dictionary using the same keys but with the number of &#8216;a&#8217;s in each value. You can do this either by editing the dict in place, or making a new one. If you edit in place, make a copy first!</li>
-<li>Create sets s2, s3 and s4 that contain numbers from zero through twenty, divisible 2, 3 and 4.</li>
 </ol>
+<p>4. Using the dictionary from item 1: Make a dictionary using the same
+keys but with the number of &#8216;a&#8217;s in each value. You can do this either
+by editing the dict in place, or making a new one. If you edit in place,
+make a copy first!</p>
+<p>5. Create sets s2, s3 and s4 that contain numbers from zero through twenty,
+divisible 2, 3 and 4.</p>
 <blockquote>
 <div><ol class="loweralpha simple">
 <li>Do this with one set comprehension for each set.</li>
-<li>What if you had a lot more than 3? &#8211; Don&#8217;t Repeat Yourself (DRY)</li>
-</ol>
-<blockquote>
-<div><ul class="simple">
+<li>What if you had a lot more than 3? &#8211; Don&#8217;t Repeat Yourself (DRY)<ul>
 <li>create a sequence that holds all three sets</li>
 <li>loop through that sequence to build the sets up &#8211; so no repeated code.</li>
 </ul>
-</div></blockquote>
-<ol class="loweralpha simple" start="3">
-<li>Extra credit:  do it all as a one-liner by nesting a set comprehension inside a list comprehension.(OK, that may be getting carried away!)</li>
+</li>
+<li>Extra credit:  do it all as a one-liner by nesting a set comprehension inside a list comprehension. (OK, that may be getting carried away!)</li>
 </ol>
 </div></blockquote>
 </div>
@@ -866,32 +845,30 @@ count_evens([1, 3, 5]) → 0
 such that each one, when called, will return the input value,
 incremented by an increasing number.</p>
 <p>Use a for loop, <tt class="docutils literal"><span class="pre">lambda</span></tt>, and a keyword argument</p>
+<p>( Extra credit ):</p>
+<p>Do it with a list comprehension, instead of a for loop</p>
 <p>Not clear? here&#8217;s what you should get</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="go">    In [96]: the_list = function_builder(4)</span>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [96]: </span><span class="n">the_list</span> <span class="o">=</span> <span class="n">function_builder</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="go">### so the_list should contain n functions (callables)</span>
-
-<span class="go">    In [97]: the_list[0](2)</span>
-<span class="go">    Out[97]: 2</span>
+<span class="gp">In [97]: </span><span class="n">the_list</span><span class="p">[</span><span class="mi">0</span><span class="p">](</span><span class="mi">2</span><span class="p">)</span>
+<span class="gh">Out[97]: </span><span class="go">2</span>
 <span class="go">## the zeroth element of the list is a function that add 0</span>
 <span class="go">## to the input, hence called with 2, returns 2</span>
-
-<span class="go">    In [98]: the_list[1](2)</span>
-<span class="go">    Out[98]: 3</span>
-<span class="go">    ## the 1st element of the list is a function that adds 1</span>
-<span class="go">    ## to the input value, thus called with 2, returns 3</span>
-
-<span class="go">    In [100]: for f in the_list:</span>
-<span class="go">        print f(5)</span>
-<span class="go">       .....:</span>
-<span class="go">    5</span>
-<span class="go">    6</span>
-<span class="go">    7</span>
-<span class="go">    8</span>
-<span class="go">### If you loop through them all, and call them, each one adds one more to the input, 5... i.e. the nth function in the list adds n to the input.</span>
+<span class="gp">In [98]: </span><span class="n">the_list</span><span class="p">[</span><span class="mi">1</span><span class="p">](</span><span class="mi">2</span><span class="p">)</span>
+<span class="gh">Out[98]: </span><span class="go">3</span>
+<span class="go">## the 1st element of the list is a function that adds 1</span>
+<span class="go">## to the input value, thus called with 2, returns 3</span>
+<span class="gp">In [100]: </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">the_list</span><span class="p">:</span>
+<span class="go">    print f(5)</span>
+<span class="gp">   .....:</span>
+<span class="go">5</span>
+<span class="go">6</span>
+<span class="go">7</span>
+<span class="go">8</span>
+<span class="go">### If you loop through them all, and call them, each one adds one more</span>
+<span class="go">to the input, 5... i.e. the nth function in the list adds n to the input.</span>
 </pre></div>
 </div>
-<p>Extra credit:</p>
-<p>Do it with a list comprehension, instead of a for loop</p>
 </div>
 <div class="section" id="functional-files">
 <h3>Functional files<a class="headerlink" href="#functional-files" title="Permalink to this headline">¶</a></h3>
@@ -900,9 +877,8 @@ incremented by an increasing number.</p>
 <p>Give your user the option of which to perform.</p>
 <p>Use <tt class="docutils literal"><span class="pre">map()</span></tt> to do the work.</p>
 <p>Write a second version using a comprehension.</p>
-<p>Hint:</p>
 <p><tt class="docutils literal"><span class="pre">sys.argv</span></tt> hold the command line arguments the user typed in. If the user types:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ python the_script a_file_name
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python the_script a_file_name
 </pre></div>
 </div>
 <p>Then:</p>
