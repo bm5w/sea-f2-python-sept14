@@ -206,22 +206,28 @@
 <div class="section" id="homework-review">
 <h3>Homework review<a class="headerlink" href="#homework-review" title="Permalink to this headline">¶</a></h3>
 <p>Homework Questions?</p>
-<p>My Solution to the trigram:</p>
-<p>(<tt class="docutils literal"><span class="pre">dict.setdefault()</span></tt>  trick...)</p>
-<p>Either pop() or del for delting from dict.</p>
-<p>passing <tt class="docutils literal"><span class="pre">**kwargs</span></tt> to string.format()</p>
 <p>If it seems harder than it should be &#8211; it is!</p>
+<p>My Solution to the trigram:</p>
+<blockquote>
+<div><ul class="simple">
+<li>(<tt class="docutils literal"><span class="pre">dict.setdefault()</span></tt>  trick...)</li>
+</ul>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">global</span></tt> keyword?</p>
 </div>
 <div class="section" id="unicode-notes">
 <h3>Unicode Notes<a class="headerlink" href="#unicode-notes" title="Permalink to this headline">¶</a></h3>
-<p>Side notes on unicode:</p>
 <p>To put unicode in your source file, put:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
 <span class="c"># -*- coding: utf-8 -*-</span>
 </pre></div>
 </div>
-<p>at the top of your file.</p>
-<p>and be sure to save it as utf-8! (file-&gt;save with encoding in Sublime)</p>
+<p>at the top of your file ... and be sure to save it as utf-8!
+(file-&gt;save with encoding in Sublime)</p>
+<p>You also might want to put:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+</pre></div>
+</div>
 <p>Additional notes on using Unicode in Python see:</p>
 <blockquote>
 <div><a class="reference internal" href="supplements/unicode.html#unicode-supplement"><em>Unicode in Python 2</em></a></div></blockquote>
@@ -242,9 +248,9 @@
 </div></blockquote>
 <p><a class="reference external" href="http://agp.hx0.ru/oop/quarks.pdf">http://agp.hx0.ru/oop/quarks.pdf</a></p>
 <p>Is Python a &#8220;True&#8221; Object-Oriented Language?</p>
-<p>(Doesn&#8217;t support full encapsulation, doesn&#8217;t require
-objects, etc...)</p>
-<p>I don&#8217;t Care!</p>
+<p>(Doesn&#8217;t support full encapsulation, doesn&#8217;t <em>require</em>
+classes,  etc...)</p>
+<p class="center large">I don&#8217;t Care!</p>
 <p>Good software design is about code re-use, clean separation of concerns,
 refactorability, testability, etc...</p>
 <dl class="docutils">
@@ -261,11 +267,13 @@ refactorability, testability, etc...</p>
 <dt>Think in terms of what makes sense for your project</dt>
 <dd>&#8211; not any one paradigm of software design.</dd>
 </dl>
-<p>&#8220;Objects can be thought of as wrapping their data
+<p>So what is &#8220;object oriented programming&#8221;?</p>
+<blockquote>
+<div>&#8220;Objects can be thought of as wrapping their data
 within a set of functions designed to ensure that
 the data are used appropriately, and to assist in
-that use&#8221;</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Object-oriented_programming">http://en.wikipedia.org/wiki/Object-oriented_programming</a>}</p>
+that use&#8221;</div></blockquote>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Object-oriented_programming">http://en.wikipedia.org/wiki/Object-oriented_programming</a></p>
 <p>Even simpler:</p>
 <p>&#8220;Objects are data and the functions that act on them in one place.&#8221;</p>
 <p>This is the core of &#8220;encapsulation&#8221;</p>
@@ -290,7 +298,6 @@ that use&#8221;</p>
 <li>inheritance</li>
 </ul>
 </div></blockquote>
-<p>Object Oriented Programming</p>
 <p>OO is the dominant model for the past couple decades</p>
 <p>You will need to use it:</p>
 <ul class="simple">
@@ -298,7 +305,6 @@ that use&#8221;</p>
 <li>You&#8217;ll need to work with OO packages</li>
 </ul>
 <p>(Even a fair bit of the standard library is Object Oriented)</p>
-<p>Some definitions:</p>
 <dl class="docutils">
 <dt>class</dt>
 <dd>A category of objects: particular data and behavior: A &#8220;circle&#8221; (same as a type in python)</dd>
@@ -307,11 +313,12 @@ that use&#8221;</p>
 <dt>object</dt>
 <dd>The general case of a instance &#8211; really any value (in Python anyway)</dd>
 <dt>attribute</dt>
-<dd>Something that belongs to an object (or class): generally thought of as a variable, or single object, as opposed to a</dd>
+<dd>Something that belongs to an object (or class): generally thought of
+as a variable, or single object, as opposed to a ...</dd>
 <dt>method</dt>
 <dd>A function that belongs to a class</dd>
 </dl>
-<p>Note that in python, functions are first class objects, so a method <em>is</em> an attribute</p>
+<p class="center">Note that in python, functions are first class objects, so a method <em>is</em> an attribute</p>
 </div>
 </div>
 <div class="section" id="python-classes">
@@ -385,12 +392,6 @@ that use&#8221;</p>
 </pre></div>
 </div>
 <p>Does this look familiar from C-style procedural programming?</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
-</pre></div>
-</div>
 <p>Anything assigned to a <tt class="docutils literal"><span class="pre">self.</span></tt>  attribute is kept in the instance
 name space &#8211; <tt class="docutils literal"><span class="pre">self</span></tt> <em>is</em> the instance.</p>
 <p>That&#8217;s where all the instance-specific data is.</p>
@@ -452,8 +453,10 @@ instance of the class shares the same one.</p>
 <p><tt class="docutils literal"><span class="pre">code/session06/sample_html.html</span></tt></p>
 <p>We&#8217;ll start with a single class, then add some sub-classes to specialize the behavior</p>
 <p>Details in:</p>
-<blockquote>
-<div><a class="reference internal" href="homework/html_builder.html#homework-html-renderer"><em>HTML Renderer Homework Assignment</em></a></div></blockquote>
+<p><a class="reference internal" href="homework/html_builder.html#homework-html-renderer"><em>HTML Renderer Homework Assignment</em></a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>Let&#8217;s see if we can do step 1. in class...</p>
 </div>
 </div>
@@ -464,7 +467,7 @@ instance of the class shares the same one.</p>
 <p>In object-oriented programming (OOP), inheritance is a way to reuse code of existing objects, or to establish a subtype from an existing object.</p>
 <p>Objects are defined by classes, classes can inherit attributes and behavior from pre-existing classes called base classes or super classes.</p>
 <p>The resulting classes are known as derived classes or subclasses.</p>
-<p>(<a class="reference external" href="http://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29">http://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29</a>})</p>
+<p>(<a class="reference external" href="http://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29">http://en.wikipedia.org/wiki/Inheritance_%28object-oriented_programming%29</a>)</p>
 </div>
 <div class="section" id="subclassing">
 <h3>Subclassing<a class="headerlink" href="#subclassing" title="Permalink to this headline">¶</a></h3>
@@ -472,11 +475,11 @@ instance of the class shares the same one.</p>
 <p>You can then change (&#8220;override&#8221;) some or all of the attributes to change the behavior.</p>
 <p>You can also add new attributes to extend the behavior.</p>
 <p>The simplest subclass in Python:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A_Subclass</span><span class="p">(</span><span class="n">The_SuperClass</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">A_subclass</span><span class="p">(</span><span class="n">The_superclass</span><span class="p">):</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<p><tt class="docutils literal"><span class="pre">A_subclass</span></tt>  now has exactly the same behavior as <tt class="docutils literal"><span class="pre">The_SuperClass</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">A_subclass</span></tt>  now has exactly the same behavior as <tt class="docutils literal"><span class="pre">The_superclass</span></tt></p>
 <p>NOTE: when we put <tt class="docutils literal"><span class="pre">object</span></tt> in there, it means we are deriving from object &#8211; getting core functionality of all objects.</p>
 </div>
 <div class="section" id="overriding-attributes">
@@ -514,13 +517,18 @@ instance of the class shares the same one.</p>
 </pre></div>
 </div>
 <p>all the instances will have the new method</p>
-<p>Here&#8217;s a program design suggestion: whenever you override a method, the
+<dl class="docutils">
+<dt>Here&#8217;s a program design suggestion:</dt>
+<dd><p class="first">whenever you override a method, the
 interface of the new method should be the same as the old.  It should take
 the same parameters, return the same type, and obey the same preconditions
-and postconditions.  If you obey this rule, you will find that any function
+and postconditions.</p>
+<p class="last">If you obey this rule, you will find that any function
 designed to work with an instance of a superclass, like a Deck, will also work
 with instances of subclasses like a Hand or PokerHand.  If you violate this
 rule, your code will collapse like (sorry) a house of cards.</p>
+</dd>
+</dl>
 <p>[ThinkPython 18.10]</p>
 <p>( Demo of class vs. instance attributes )</p>
 </div>
@@ -551,13 +559,16 @@ rule, your code will collapse like (sorry) a house of cards.</p>
 <span class="o">...</span>
     <span class="k">def</span> <span class="nf">get_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">diameter</span><span class="o">/</span><span class="mf">2.0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+
+
 <span class="k">class</span> <span class="nc">CircleR2</span><span class="p">(</span><span class="n">Circle</span><span class="p">):</span>
 <span class="o">...</span>
     <span class="k">def</span> <span class="nf">get_area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Circle</span><span class="o">.</span><span class="n">get_area</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>There is nothing special about <tt class="docutils literal"><span class="pre">__init__</span></tt>  except that it gets called automatically when you instantiate an instance.</p>
+<p>There is nothing special about <tt class="docutils literal"><span class="pre">__init__</span></tt>  except that it gets called
+automatically when you instantiate an instance.</p>
 </div>
 <div class="section" id="when-to-subclass">
 <h3>When to Subclass<a class="headerlink" href="#when-to-subclass" title="Permalink to this headline">¶</a></h3>
@@ -602,13 +613,14 @@ rule, your code will collapse like (sorry) a house of cards.</p>
 </ul>
 </li>
 <li>Attribute resolution order</li>
-<li>Auto tacking-on of <tt class="docutils literal"><span class="pre">self</span></tt></li>
+<li>Auto tacking-on of <tt class="docutils literal"><span class="pre">self</span></tt> when methods are called</li>
 </ul>
 </div></blockquote>
 <p>That&#8217;s about it &#8211; really!</p>
 </div>
 <div class="section" id="type-based-dispatch">
 <h3>Type-Based dispatch<a class="headerlink" href="#type-based-dispatch" title="Permalink to this headline">¶</a></h3>
+<p>You&#8217;ll see code that looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">A_Class</span><span class="p">):</span>
     <span class="n">Do_something_with_other</span>
 <span class="k">else</span><span class="p">:</span>
@@ -638,25 +650,23 @@ rule, your code will collapse like (sorry) a house of cards.</p>
 <li>...</li>
 </ul>
 <p>Don&#8217;t be a slave to what OO is <em>supposed</em> to look like.</p>
-<p>Let OO work for you, not <em>create</em> work for you}</p>
+<p>Let OO work for you, not <em>create</em> work for you</p>
 <p>OO in Python:</p>
-<p>The Art of Subclassing: Raymond Hettinger</p>
-<p><a class="reference external" href="http://pyvideo.org/video/879/the-art-of-subclassing">http://pyvideo.org/video/879/the-art-of-subclassing</a>}}</p>
+<p>The Art of Subclassing: <em>Raymond Hettinger</em></p>
+<p><a class="reference external" href="http://pyvideo.org/video/879/the-art-of-subclassing">http://pyvideo.org/video/879/the-art-of-subclassing</a></p>
 <p>&#8220;classes are for code re-use &#8211; not creating taxonomies&#8221;</p>
-<p>Stop Writing Classes: Jack Diederich</p>
-<p><a class="reference external" href="http://pyvideo.org/video/880/stop-writing-classes">http://pyvideo.org/video/880/stop-writing-classes</a>}}</p>
-<p>&#8220;If your class has only two methods &#8211; and one of them is <tt class="docutils literal"><span class="pre">__init__</span></tt></p>
-<blockquote>
-<div><ul class="simple">
-<li>you don&#8217;t need a class &#8220;</li>
-</ul>
-</div></blockquote>
+<p>Stop Writing Classes: <em>Jack Diederich</em></p>
+<p><a class="reference external" href="http://pyvideo.org/video/880/stop-writing-classes">http://pyvideo.org/video/880/stop-writing-classes</a></p>
+<p>&#8220;If your class has only two methods &#8211; and one of them is <tt class="docutils literal"><span class="pre">__init__</span></tt>
+&#8211; you don&#8217;t need a class&#8221;</p>
 </div>
 <div class="section" id="homework">
 <h3>Homework<a class="headerlink" href="#homework" title="Permalink to this headline">¶</a></h3>
 <p>Build an html rendering system:</p>
-<blockquote>
-<div><a class="reference internal" href="homework/html_builder.html#homework-html-renderer"><em>HTML Renderer Homework Assignment</em></a></div></blockquote>
+<p><a class="reference internal" href="homework/html_builder.html#homework-html-renderer"><em>HTML Renderer Homework Assignment</em></a></p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
 <p>You will build an html generator, using:</p>
 <ul class="simple">
 <li>A Base Class with a couple methods</li>
