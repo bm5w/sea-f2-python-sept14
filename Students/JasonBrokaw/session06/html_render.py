@@ -27,9 +27,9 @@ class Element(object):
         tag_close = "</" + self.tag_name + ">"
         if not self.content:
             return [tag_open + tag_close]
-        # if len(self.content) == 1 and isinstance(self.content[0], unicode):
-        #     return [tag_open + self.content[0] + tag_close]
-        # else:
+        if len(self.content) == 1 and (isinstance(self.content[0], str)\
+                                        or isinstance(self.content[0], unicode)):
+            return [tag_open + self.content[0] + tag_close]
         line_list = [tag_open]
         for item in self.content:
             if isinstance(item, Element):
@@ -77,4 +77,12 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     tag_name = "br"
+
+class A(Element):
+    tag_name = "a"
+
+    def __init__(self, link=None, content=None):
+        Element.__init__(self, content, href=link)
+
+
 
