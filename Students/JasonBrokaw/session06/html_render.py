@@ -4,8 +4,9 @@ class Element(object):
     tag_name = "GENERIC ELEMENT"
     tabstring = "  "
 
-    def __init__(self, content=None):
+    def __init__(self, content=None, **kwargs):
         self.content = [content] if content else []
+        self.attributes = kwargs
 
     def append(self, s):
         """Append s to self.content (list)"""
@@ -18,21 +19,25 @@ class Element(object):
 
     def render_list(self):
         """Return a 'properly tabbed' list of strings for Element and its content"""
-        tag_open = "<" + self.tag_name + ">"
+        attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
+        if attribute_format_string:
+            tag_open = "<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + ">"
+        else:
+            tag_open = "<" + self.tag_name + ">"
         tag_close = "</" + self.tag_name + ">"
         if not self.content:
             return [tag_open + tag_close]
-        if len(self.content) == 1 and isinstance(self.content[0], unicode):
-            return [tag_open + self.content[0] + tag_close]
-        else:
-            line_list = [tag_open]
-            for item in self.content:
-                if isinstance(item, Element):
-                    line_list.extend(self.addtabs(item.render_list()))
-                else:
-                    line_list.append(Element.tabstring + item)
-            line_list.append(tag_close)
-            return line_list
+        # if len(self.content) == 1 and isinstance(self.content[0], unicode):
+        #     return [tag_open + self.content[0] + tag_close]
+        # else:
+        line_list = [tag_open]
+        for item in self.content:
+            if isinstance(item, Element):
+                line_list.extend(self.addtabs(item.render_list()))
+            else:
+                line_list.append(Element.tabstring + item)
+        line_list.append(tag_close)
+        return line_list
 
     def render(self, file_out):
         """Output self and all its contents to file_out"""
