@@ -68,7 +68,7 @@ class OneLineTag(Element):
         if not self.content:
             return [tag_open + tag_close]
         return [tag_open + self.content[0] + tag_close]
-        #anything other than the first conent won't render: be careful.
+        #anything other than the first content won't render: be careful.
 
 class Title(OneLineTag):
     tag_name = "title"
