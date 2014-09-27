@@ -8,9 +8,11 @@ class Element(object):
         self.content = [content] if content else []
 
     def append(self, s):
+        """Append s to self.content (list)"""
         self.content.append(s)
 
     def addtabs(self, line_list):
+        """Return a list with a tab before all items (strings) in line_list"""
         tabbed_list = [Element.tabstring + line for line in line_list]
         return tabbed_list
 
@@ -33,6 +35,7 @@ class Element(object):
             return line_list
 
     def render(self, file_out):
+        """Output self and all its contents to file_out"""
         output_string = "\n".join(self.render_list())
         file_out.write(output_string)
 
@@ -44,3 +47,18 @@ class Body(Element):
 
 class P(Element):
     tag_name = "p"
+
+class Head(Element):
+    tag_name = "head"
+
+class OneLineTag(Element): #Not strictly necessary since simple/empty tags already render on one line, done for sake of following the homework path
+    def render_list(self):
+        tag_open = "<" + self.tag_name + ">"
+        tag_close = "</" + self.tag_name + ">"
+        if not self.content:
+            return [tag_open + tag_close]
+        return [tag_open + self.content[0] + tag_close]
+        #anything other than the first conent won't render: be careful.
+
+class Title(OneLineTag):
+    tag_name = "title"
