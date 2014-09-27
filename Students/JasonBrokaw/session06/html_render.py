@@ -19,8 +19,8 @@ class Element(object):
 
     def render_list(self):
         """Return a 'properly tabbed' list of strings for Element and its content"""
-        attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
-        if attribute_format_string:
+        if self.attributes:
+            attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
             tag_open = "<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + ">"
         else:
             tag_open = "<" + self.tag_name + ">"
@@ -40,12 +40,17 @@ class Element(object):
         return line_list
 
     def render(self, file_out):
-        """Output self and all its contents to file_out"""
+        """Write self and all its contents to file_out"""
         output_string = "\n".join(self.render_list())
         file_out.write(output_string)
 
 class Html(Element):
     tag_name = "html"
+
+    def render_list(self):
+        line_list = ["<!DOCTYPE html>"]
+        line_list.extend(Element.render_list(self))
+        return line_list
 
 class Body(Element):
     tag_name = "body"
@@ -70,6 +75,9 @@ class Title(OneLineTag):
 
 class SelfClosingTag(Element):
     def render_list(self):
+        if self.attributes:
+            attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
+            return ["<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + " />"]
         return ["<" + self.tag_name + " />"]
 
 class Hr(SelfClosingTag):
@@ -95,6 +103,8 @@ class H(OneLineTag):
         self.tag_name = "h" + str(level)
         OneLineTag.__init__(self, content, **kwargs)
 
+class Meta(SelfClosingTag):
+    tag_name = "meta"
 
 
 
