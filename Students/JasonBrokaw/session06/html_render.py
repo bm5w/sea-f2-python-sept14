@@ -56,7 +56,7 @@ class P(Element):
 class Head(Element):
     tag_name = "head"
 
-class OneLineTag(Element): #Not strictly necessary since simple/empty tags already render on one line, done for sake of following the homework path
+class OneLineTag(Element):
     def render_list(self):
         tag_open = "<" + self.tag_name + ">"
         tag_close = "</" + self.tag_name + ">"
@@ -67,3 +67,14 @@ class OneLineTag(Element): #Not strictly necessary since simple/empty tags alrea
 
 class Title(OneLineTag):
     tag_name = "title"
+
+class SelfClosingTag(Element):
+    def render_list(self):
+        return ["<" + self.tag_name + " />"]
+
+class Hr(SelfClosingTag):
+    tag_name = "hr"
+
+class Br(SelfClosingTag):
+    tag_name = "br"
+
