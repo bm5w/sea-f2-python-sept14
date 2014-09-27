@@ -84,5 +84,17 @@ class A(Element):
     def __init__(self, link=None, content=None):
         Element.__init__(self, content, href=link)
 
+class Ul(Element):
+    tag_name = "ul"
+
+class Li(Element):
+    tag_name = "li"
+
+class H(OneLineTag):
+    def __init__(self, level=1, content=None, **kwargs):
+        self.tag_name = "h" + str(level)
+        OneLineTag.__init__(self, content, **kwargs)
+
+
 
 
