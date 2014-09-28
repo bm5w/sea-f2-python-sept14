@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 class Element(object):
     tag_name = "GENERIC ELEMENT"
-    tabstring = "  "
+    tabstring = "    "
 
     def __init__(self, content=None, **kwargs):
         self.content = [content] if content else []
@@ -12,45 +12,37 @@ class Element(object):
         """Append s to self.content (list)"""
         self.content.append(s)
 
-    def addtabs(self, line_list):
-        """Return a list with a tab before all items (strings) in line_list"""
-        tabbed_list = [Element.tabstring + line for line in line_list]
-        return tabbed_list
-
-    def render_list(self):
-        """Return a 'properly tabbed' list of strings for Element and its content"""
+    def render(self, file_out, indent_level=0):
+        """Write an Element and its content to file_out"""
         if self.attributes:
             attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
             tag_open = "<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + ">"
         else:
             tag_open = "<" + self.tag_name + ">"
         tag_close = "</" + self.tag_name + ">"
+        ind = Element.tabstring * indent_level
         if not self.content:
-            return [tag_open + tag_close]
+            file_out.write(ind + tag_open + tag_close + "\n")
+            return
         if len(self.content) == 1 and (isinstance(self.content[0], str)\
-                                        or isinstance(self.content[0], unicode)):
-            return [tag_open + self.content[0] + tag_close]
-        line_list = [tag_open]
+                                        or isinstance(self.content[0], unicode))\
+                                  and len(self.content[0]) < 10:
+            file_out.write(ind + tag_open + self.content[0] + tag_close + "\n")
+            return
+        file_out.write(ind + tag_open + "\n")
         for item in self.content:
             if isinstance(item, Element):
-                line_list.extend(self.addtabs(item.render_list()))
+                item.render(file_out, indent_level + 1)
             else:
-                line_list.append(Element.tabstring + item)
-        line_list.append(tag_close)
-        return line_list
-
-    def render(self, file_out):
-        """Write self and all its contents to file_out"""
-        output_string = "\n".join(self.render_list())
-        file_out.write(output_string)
+                file_out.write(ind + Element.tabstring + item + "\n")
+        file_out.write(ind + tag_close + "\n")
 
 class Html(Element):
     tag_name = "html"
 
-    def render_list(self):
-        line_list = ["<!DOCTYPE html>"]
-        line_list.extend(Element.render_list(self))
-        return line_list
+    def render(self, file_out, indent_level=0):
+        file_out.write("<!DOCTYPE html>\n")
+        Element.render(self, file_out, indent_level)
 
 class Body(Element):
     tag_name = "body"
@@ -62,23 +54,31 @@ class Head(Element):
     tag_name = "head"
 
 class OneLineTag(Element):
-    def render_list(self):
-        tag_open = "<" + self.tag_name + ">"
+    def render(self, file_out, indent_level=0):
+        if self.attributes:
+            attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
+            tag_open = "<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + ">"
+        else:
+            tag_open = "<" + self.tag_name + ">"
         tag_close = "</" + self.tag_name + ">"
+        ind = Element.tabstring * indent_level
         if not self.content:
-            return [tag_open + tag_close]
-        return [tag_open + self.content[0] + tag_close]
-        #anything other than the first content won't render: be careful.
+            file_out.write(ind + tag_open + tag_close + "\n")
+        else:
+            file_out.write(ind + tag_open + self.content[0] + tag_close + "\n")
+        #anything other than the first content won't render: be careful. It has to be a string
 
 class Title(OneLineTag):
     tag_name = "title"
 
 class SelfClosingTag(Element):
-    def render_list(self):
+    def render(self, file_out, indent_level=0):
+        ind = Element.tabstring * indent_level
         if self.attributes:
             attribute_format_string = " ".join(['{key}="{{{key}}}"'.format(key=key) for key in self.attributes])
-            return ["<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + " />"]
-        return ["<" + self.tag_name + " />"]
+            file_out.write(ind + "<" + self.tag_name + " " + attribute_format_string.format(**self.attributes) + " />\n")
+        else:
+            file_out.write(ind + "<" + self.tag_name + " />\n")
 
 class Hr(SelfClosingTag):
     tag_name = "hr"
