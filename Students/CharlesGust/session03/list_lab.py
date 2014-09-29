@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 def series1(alist):
     """ print fruit lists and searches from session03, series 1 """
     alist = ["Apples", "Pears", "Oranges", "Peaches"]
