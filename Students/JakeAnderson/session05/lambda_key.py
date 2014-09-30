@@ -10,4 +10,4 @@ for i in lists:
 	print i(0)
 
 #use a keyword arguement to make the_list start at 0 every time
-#probably a **kwargs   self?
+#probably a **kwargs   .self?
