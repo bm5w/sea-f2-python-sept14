@@ -46,6 +46,11 @@ class Element(object):
 
 class Html(Element):
     tag = 'html'
+    def render(self, file_out, ind = 1):
+        file_out.write("<!DOCTYPE html>")
+        Element.render(self, file_out, ind)
+
+
 class Body(Element):
     tag = 'body'
 class P(Element):
@@ -90,6 +95,18 @@ class A(OneLineTag):
         Element.__init__(self, content, **linkdict)
 class Ul(Element):
     tag = 'ul'
+class Li(Element):
+    tag = 'il'
+class H(OneLineTag):
+    tag = 'h'
+    def __init__(self, num, content = None, **kwargs):
+        Element.__init__(self, content, **kwargs)
+        self.tag = self.tag + str(num)
+class Meta(SelfClosingTag):
+    tag = 'meta'
+
+
+        
 
 
 
