@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-
+# import from future unicode...
+# import pytest
+# from circle import Circle
 """
 Python class example.
 
@@ -52,11 +54,46 @@ class Head(Element):
     tag = 'head'
 class OneLineTag(Element):
     def render(self, file_out, ind = 1):
-        file_out.write(self.indent * ind + "<" + self.tag + "> ")
-        file_out.write(" ".join(self.content_list))
-        file_out.write(" </" + self.tag +">\n")
+        attributes = ""
+        if self.kwargs == None:
+            file_out.write(self.indent * ind + "<" + self.tag + "> ")
+            file_out.write(" ".join(self.content_list))
+            file_out.write(" </" + self.tag +">\n")
+        else:
+            for i in self.kwargs:
+                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '" '
+            file_out.write(self.indent * ind + "<" + self.tag + attributes +">")
+            file_out.write(" ".join(self.content_list))
+            file_out.write(" </" + self.tag +">\n")
+
 class Title(OneLineTag):
     tag = 'title'
+class SelfClosingTag(Element):
+
+    def render(self, file_out, ind = 1):
+        attributes = ""
+        if self.kwargs == None:
+            file_out.write(self.indent * ind + "<" + self.tag +"/>\n")
+        else:
+            for i in self.kwargs:
+                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '" '
+            file_out.write(self.indent * ind + "<" + self.tag + attributes +"/>\n")
+class Hr(SelfClosingTag):
+    tag = 'hr'
+class Br(SelfClosingTag):
+    tag = 'br'
+
+class A(OneLineTag):
+    tag = 'a'
+    def __init__(self, link, content = None):
+        linkdict = {"href":link}
+        Element.__init__(self, content, **linkdict)
+class Ul(Element):
+    tag = 'ul'
+
+
+
+
 
 
 
