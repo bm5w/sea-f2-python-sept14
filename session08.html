@@ -224,7 +224,8 @@
 <p>This means that you can bind symbols to them, pass them around, just like
 other objects.</p>
 <p>Because of this fact, you can write functions that take functions as
-arguments and/or return functions as values:</p>
+arguments and/or return functions as values (we played with this a
+bit with the function generator assignment):</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">substitute</span><span class="p">(</span><span class="n">a_function</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">new_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="s">&quot;I&#39;m not that other function&quot;</span>
@@ -234,12 +235,12 @@ arguments and/or return functions as values:</p>
 </div>
 <div class="section" id="a-definition">
 <h3>A Definition<a class="headerlink" href="#a-definition" title="Permalink to this headline">¶</a></h3>
-<p>There are many things you can do with a simple pattern like this one.  So many,
-that we give it a special name:</p>
-<p class="centered"><strong>Decorator</strong></p>
+<p>There are many things you can do with a simple pattern like this one.</p>
+<p>So many, that we give it a special name:</p>
+<p class="centered mlarge"><strong>Decorator</strong></p>
 <div class="build container">
-<p>A decorator is a function that takes a function as an argument and
-returns a function as a return value.</p>
+<p>&#8220;A decorator is a function that takes a function as an argument and
+returns a function as a return value.&#8221;</p>
 <p>That&#8217;s nice and all, but why is that useful?</p>
 </div>
 </div>
@@ -346,8 +347,7 @@ incomplete.</p>
 <p>In python a <em>callable</em> is a function, a method on a class, or even a class that
 implements the <tt class="docutils literal"><span class="pre">__call__</span></tt> special method.</p>
 <p>So in fact the definition should be updated as follows:</p>
-<p class="centered">A decorator is a callable that takes a callable as an argument and
-returns a callable as a return value.</p>
+<p class="centered">&#8220;A decorator is a callable that takes a callable as an argument and returns a callable as a return value.&#8221;&#8220;</p>
 </div>
 <div class="section" id="id1">
 <h3>An Example<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
@@ -433,37 +433,38 @@ decorator:</p>
 <p>It&#8217;s going to be a lot more common for you to use pre-defined decorators than
 for you to be writing your own.</p>
 <p>Let&#8217;s see a few that might help you with work you&#8217;ve been doing recently.</p>
-<p>For example, a <tt class="docutils literal"><span class="pre">staticmethod()</span></tt> can be implemented with a decorator
+<p>For example, we saw that  <tt class="docutils literal"><span class="pre">staticmethod()</span></tt> can be implemented with a decorator
 expression:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># the way we saw last week:</span>
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
     <span class="n">add</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
-
-<span class="c"># and the decorator form</span>
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>Can be implimented as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 </pre></div>
 </div>
-<p>The <tt class="docutils literal"><span class="pre">classmethod()</span></tt> builtin can do the same thing:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># in imperative style:</span>
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<p>And the <tt class="docutils literal"><span class="pre">classmethod()</span></tt> builtin can do the same thing:</p>
+<p>In imperative style...</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">from_iterable</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
         <span class="c"># method body</span>
     <span class="n">from_iterable</span> <span class="o">=</span> <span class="nb">classmethod</span><span class="p">(</span><span class="n">from_iterable</span><span class="p">)</span>
-
-<span class="c"># and in declarative style</span>
-<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+</pre></div>
+</div>
+<p>and in declarative style:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_iterable</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
         <span class="c"># method body</span>
 </pre></div>
 </div>
 <p>Perhaps most commonly, you&#8217;ll see the <tt class="docutils literal"><span class="pre">property()</span></tt> builtin used this way.</p>
-<p>Last week we saw this code:</p>
+<p>Remember this from last week?</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">None</span>
@@ -477,7 +478,6 @@ expression:</p>
                  <span class="s">&quot;I&#39;m the &#39;x&#39; property.&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Used in a decorator statement, it looks like this:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_x</span> <span class="o">=</span> <span class="bp">None</span>
@@ -495,6 +495,7 @@ expression:</p>
 <p>Note that in this case, the decorator object returned by the property decorator
 itself implements additional decorators as attributes on the returned method
 object.</p>
+<p>Does this make more sense now?</p>
 </div>
 </div>
 <div class="section" id="iterators-and-generators">
@@ -550,7 +551,7 @@ raises the <tt class="docutils literal"><span class="pre">StopIteration</span></
 </div>
 <div class="section" id="making-an-iterator">
 <h3>Making an Iterator<a class="headerlink" href="#making-an-iterator" title="Permalink to this headline">¶</a></h3>
-<p>A simple version of <tt class="docutils literal"><span class="pre">xrange()</span></tt></p>
+<p>A simple version of <tt class="docutils literal"><span class="pre">xrange()</span></tt> (whoo hoo!)</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">IterateMe_1</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">current</span> <span class="o">=</span> <span class="mi">0</span>
@@ -565,7 +566,7 @@ raises the <tt class="docutils literal"><span class="pre">StopIteration</span></
             <span class="k">raise</span> <span class="ne">StopIteration</span>
 </pre></div>
 </div>
-<p>(demo: <tt class="docutils literal"><span class="pre">code/iterator_1.py</span></tt>)</p>
+<p>(demo: <tt class="docutils literal"><span class="pre">Examples/Session08/iterator_1.py</span></tt>)</p>
 </div>
 <div class="section" id="iter">
 <h3><tt class="docutils literal"><span class="pre">iter()</span></tt><a class="headerlink" href="#iter" title="Permalink to this headline">¶</a></h3>
@@ -586,11 +587,10 @@ raises the <tt class="docutils literal"><span class="pre">StopIteration</span></
 <div class="section" id="what-does-for-do">
 <h3>What does <tt class="docutils literal"><span class="pre">for</span></tt> do?<a class="headerlink" href="#what-does-for-do" title="Permalink to this headline">¶</a></h3>
 <p>Now that we know the iterator protocol, we can write something like a for loop:</p>
-<p>(<tt class="docutils literal"><span class="pre">code/session08/my_for.py</span></tt>)</p>
+<p>(<tt class="docutils literal"><span class="pre">Examples/Session08/my_for.py</span></tt>)</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_for</span><span class="p">(</span><span class="n">an_iterable</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Emulation of a for loop.</span>
-
 <span class="sd">    func() will be called with each item in an_iterable</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># equiv of &quot;for i in l:&quot;</span>
@@ -611,15 +611,16 @@ build an iterator that iterates over sequences in various common ways</p>
 <p><a class="reference external" href="http://docs.python.org/library/itertools.html">http://docs.python.org/library/itertools.html</a></p>
 <p>NOTE:</p>
 <p>iterators are not <em>only</em> for <tt class="docutils literal"><span class="pre">for</span></tt></p>
-<p>They can be used with anything that expexts an iterator:</p>
+<p>They can be used with anything that expects an iterator:</p>
 <p><tt class="docutils literal"><span class="pre">sum</span></tt>, <tt class="docutils literal"><span class="pre">tuple</span></tt>, <tt class="docutils literal"><span class="pre">sorted</span></tt>, and <tt class="docutils literal"><span class="pre">list</span></tt></p>
 <p>For example.</p>
 </div>
 <div class="section" id="lab-homework">
 <h3>LAB / Homework<a class="headerlink" href="#lab-homework" title="Permalink to this headline">¶</a></h3>
-<p>In the <tt class="docutils literal"><span class="pre">code/session08</span></tt> dir, you will find: <tt class="docutils literal"><span class="pre">iterator_1.py</span></tt></p>
+<p>In the <tt class="docutils literal"><span class="pre">Examples/Session08</span></tt> dir, you will find: <tt class="docutils literal"><span class="pre">iterator_1.py</span></tt></p>
 <ul class="simple">
-<li>Extend (<tt class="docutils literal"><span class="pre">iterator_1.py</span></tt> ) to be more like <tt class="docutils literal"><span class="pre">xrange()</span></tt> &#8211; add three input parameters: <tt class="docutils literal"><span class="pre">iterator_2(start,</span> <span class="pre">stop,</span> <span class="pre">step=1)</span></tt></li>
+<li>Extend (<tt class="docutils literal"><span class="pre">iterator_1.py</span></tt> ) to be more like <tt class="docutils literal"><span class="pre">xrange()</span></tt> &#8211;
+add three input parameters: <tt class="docutils literal"><span class="pre">iterator_2(start,</span> <span class="pre">stop,</span> <span class="pre">step=1)</span></tt></li>
 <li>See what happens if you break out in the middle of the loop:</li>
 </ul>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">it</span> <span class="o">=</span> <span class="n">IterateMe_2</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -648,9 +649,10 @@ build an iterator that iterates over sequences in various common ways</p>
 </ul>
 <dl class="docutils">
 <dt>Conceptually:</dt>
-<dd>Iterators are about various ways to loop over data, generators generate the data on the fly</dd>
+<dd>Iterators are about various ways to loop over data, generators generate
+the data on the fly</dd>
 <dt>Practically:</dt>
-<dd><p class="first">You can use either either way (and a generator is one type of iterator</p>
+<dd><p class="first">You can use either either way (and a generator is one type of iterator)</p>
 <p class="last">Generators do some of the book-keeping for you.</p>
 </dd>
 </dl>
@@ -699,7 +701,7 @@ build an iterator that iterates over sequences in various common ways</p>
 <p>A generator function can also be a method in a class</p>
 <p>More about iterators and generators:</p>
 <p><a class="reference external" href="http://www.learningpython.com/2009/02/23/iterators-iterables-and-generators-oh-my/">http://www.learningpython.com/2009/02/23/iterators-iterables-and-generators-oh-my/</a></p>
-<p><tt class="docutils literal"><span class="pre">code/session08/yield_example.py</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">Examples/Session08/yield_example.py</span></tt></p>
 </div>
 <div class="section" id="generator-comprehension">
 <h3>generator comprehension<a class="headerlink" href="#generator-comprehension" title="Permalink to this headline">¶</a></h3>
@@ -724,7 +726,7 @@ build an iterator that iterates over sequences in various common ways</p>
 <li>Fibonacci sequence</li>
 <li>Prime numbers</li>
 </ul>
-<p>(test code in <tt class="docutils literal"><span class="pre">code/session08/test_generator.py</span></tt>)</p>
+<p>(test code in <tt class="docutils literal"><span class="pre">Examples/Session08/test_generator.py</span></tt>)</p>
 <p>Descriptions:</p>
 <dl class="docutils">
 <dt>Sum of the integers:</dt>
@@ -785,7 +787,7 @@ is a network connection, or a database cursor?</p>
 </pre></div>
 </div>
 <p>But what exceptions do you want to catch?  And do you really want to have to
-remember all that <strong>every</strong> time you open a resource?</p>
+remember all that <strong>every</strong> time you open a file (or other resource)?</p>
 <p>Starting in version 2.5, Python provides a structure for reducing the
 repetition needed to handle resources like this.</p>
 <p class="centered"><strong>Context Managers</strong></p>
@@ -943,6 +945,13 @@ Because the exit method returns True, the raised error is &#8216;handled&#8217;.
 <div class="section" id="homework">
 <h2>Homework<a class="headerlink" href="#homework" title="Permalink to this headline">¶</a></h2>
 <p>Python Power</p>
+<div class="section" id="beautiful-idiomatic-python">
+<h3>Beautiful, Idiomatic Python<a class="headerlink" href="#beautiful-idiomatic-python" title="Permalink to this headline">¶</a></h3>
+<p>Transforming Code into Beautiful, Idiomatic Python:</p>
+<p><a class="reference external" href="https://www.youtube.com/watch?v=OSGv2VnC0go">https://www.youtube.com/watch?v=OSGv2VnC0go</a></p>
+<p>Raymond hettinger (again) talks about Pythonic code.</p>
+<p>A lot of it is about using iterators &#8211; now you know what those really are.</p>
+</div>
 <div class="section" id="assignments">
 <h3>Assignments<a class="headerlink" href="#assignments" title="Permalink to this headline">¶</a></h3>
 <p>Task 1: Timing Context Manager</p>
@@ -971,6 +980,8 @@ HTML &#8216;p&#8217; tag:</p>
 <span class="gh">Out[5]: </span><span class="go">&#39;&lt;p&gt; this is a string &lt;/p&gt;&#39;</span>
 </pre></div>
 </div>
+<p>Note that this is a <strong>very</strong> simple version of the very useful decorators
+provided by Web Frameworks.</p>
 <p>Task 3: Generator Homework (documented above)</p>
 <p>Task 4: Iterator Homework (documented above)</p>
 </div>

@@ -254,6 +254,7 @@ http://pyvideo.org/video/879/the-art-of-subclassing
 | 
 | 
 | 
+
 ( I pointed you to it last week, but Seriously, well worth the time. )
 
 
@@ -930,7 +931,7 @@ For example, to make '+' work with a sequence type in a vector-like fashion, imp
         """return the element-wise vector sum of self and v
         """
         assert len(self) == len(v)
-        return vector([x1 + x2 for x1, x2 in zip(self, v)])
+        return Vector([x1 + x2 for x1, x2 in zip(self, v)])
 
 .. rst-class:: centered
 
