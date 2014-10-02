@@ -34,4 +34,21 @@ class Circle(object):
     def diameter(self, diameter):
         self._radius = diameter / 2.0
 
+    def __str__(self):
+        return 'Circle with radius: %.6f' % self.radius
+
+    def __repr__(self):
+        return 'Circle(%g)' % self._radius
+
+    def __add__(self, c):
+        return Circle(self.radius + c.radius)
+
+    def __mul__(self, num):
+        return Circle(num * self.radius)
+
+    def __cmp__(self, c):
+        return cmp(self.radius, c.radius)
+
+
+
 
