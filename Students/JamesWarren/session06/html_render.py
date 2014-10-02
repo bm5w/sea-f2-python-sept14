@@ -30,7 +30,7 @@ class Element(object):
             try:
                 item.render(file_out, ind)
             except AttributeError:
-                file_out.write("\n"+ind+self.content[0])
+                file_out.write("\n%s%s" % (ind, item))
         file_out.write("\n%s</%s>" % (cind, self.tag))
 
 class Html(Element):
@@ -61,3 +61,15 @@ class Hr(SelfClosingTag):
 
 class Br(SelfClosingTag):
     tag = "br"
+
+class A(OneLineTag):
+    tag = "a"
+
+    def __init__(self, link=None, content=None):
+        if link is not None:
+            self.link = ' href="%s"' % link
+        super(A, self).__init__(content)
+
+    def render(self, file_out, ind=""):
+        file_out.write("\n%s<%s%s>%s</%s>" % (ind, self.tag, self.link, self.content[0], self.tag))
+
