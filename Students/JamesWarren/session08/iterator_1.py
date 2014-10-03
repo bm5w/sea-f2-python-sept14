@@ -25,7 +25,7 @@ class IterateMe_1(object):
             raise StopIteration
 
 class IterateMe_2(object):
-    def __init__(self, start=-1, stop, step=1):
+    def __init__(self, start, stop, step=1):
         self.current = start
         self.stop = stop
         self.step = step
