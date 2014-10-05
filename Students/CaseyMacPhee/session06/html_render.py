@@ -4,14 +4,13 @@
 # from circle import Circle
 """
 Python class example.
-
 """
 
 # The start of it all:
 # Fill it all in here.
 class Element(object):
     tag = 'html'
-    indent = '\t'
+    indent = '    '
     kwargs = None
     def __init__(self, content = None, **kwargs):
         self.kwargs = kwargs
@@ -20,7 +19,7 @@ class Element(object):
         else:
             self.content_list = [content]
 
-    def render(self, file_out, ind = 1):
+    def render(self, file_out, ind = 0):
         """render the content to file object"""
         attributes = ""
 
@@ -28,7 +27,7 @@ class Element(object):
             file_out.write(self.indent * ind + "<" + self.tag +">\n")
         else:
             for i in self.kwargs:
-                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '" '
+                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '"'
             file_out.write(self.indent * ind + "<" + self.tag + attributes +">\n")
 
         for i in range(len(self.content_list)):
@@ -46,8 +45,8 @@ class Element(object):
 
 class Html(Element):
     tag = 'html'
-    def render(self, file_out, ind = 1):
-        file_out.write("<!DOCTYPE html>")
+    def render(self, file_out, ind = 0):
+        file_out.write("<!DOCTYPE html>\n")
         Element.render(self, file_out, ind)
 
 
@@ -58,31 +57,31 @@ class P(Element):
 class Head(Element):
     tag = 'head'
 class OneLineTag(Element):
-    def render(self, file_out, ind = 1):
+    def render(self, file_out, ind = 0):
         attributes = ""
         if self.kwargs == None:
-            file_out.write(self.indent * ind + "<" + self.tag + "> ")
+            file_out.write(self.indent * ind + "<" + self.tag + ">")
             file_out.write(" ".join(self.content_list))
-            file_out.write(" </" + self.tag +">\n")
+            file_out.write("</" + self.tag +">\n")
         else:
             for i in self.kwargs:
-                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '" '
+                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '"'
             file_out.write(self.indent * ind + "<" + self.tag + attributes +">")
             file_out.write(" ".join(self.content_list))
-            file_out.write(" </" + self.tag +">\n")
+            file_out.write("</" + self.tag +">\n")
 
 class Title(OneLineTag):
     tag = 'title'
 class SelfClosingTag(Element):
 
-    def render(self, file_out, ind = 1):
+    def render(self, file_out, ind = 0):
         attributes = ""
         if self.kwargs == None:
-            file_out.write(self.indent * ind + "<" + self.tag +"/>\n")
+            file_out.write(self.indent * ind + "<" + self.tag +" />\n")
         else:
             for i in self.kwargs:
-                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '" '
-            file_out.write(self.indent * ind + "<" + self.tag + attributes +"/>\n")
+                attributes += " " + i + '="' + str(self.kwargs.get(i)) + '"'
+            file_out.write(self.indent * ind + "<" + self.tag + attributes +" />\n")
 class Hr(SelfClosingTag):
     tag = 'hr'
 class Br(SelfClosingTag):
@@ -96,7 +95,7 @@ class A(OneLineTag):
 class Ul(Element):
     tag = 'ul'
 class Li(Element):
-    tag = 'il'
+    tag = 'li'
 class H(OneLineTag):
     tag = 'h'
     def __init__(self, num, content = None, **kwargs):
