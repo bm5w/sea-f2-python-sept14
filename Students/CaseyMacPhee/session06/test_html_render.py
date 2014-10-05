@@ -92,7 +92,8 @@ def test_html():
             </li>
         </ul>
     </body>
-</html>"""
+</html>
+"""
 	assert text == comptext
 
 
