@@ -5,7 +5,7 @@ Simple iterator examples
 """
 
 
-class IterateMe_1(object):
+class IterateMe_2(object):
     """
     About as simple an iterator as you can get:
 
@@ -43,7 +43,20 @@ class IterateMe_1(object):
 
 if __name__ == "__main__":
 
-    print "first version"
-    for i in IterateMe_1():
+    print "updated version, should print 2, 4, ... 18"
+    for i in IterateMe_2(2, 20, 2):
         print i
+
+    print "Testing break, these two numbers should be the same (12)"
+    it = IterateMe_2(2, 20, 2)
+    for i in it:
+        if i > 10:  break
+    print i
+
+    it = xrange(2, 20, 2)
+    for i in it:
+        if i > 10:  break
+    print i
+
+
 
