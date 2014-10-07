@@ -7,10 +7,7 @@ Simple iterator examples
 
 class IterateMe_2(object):
     """
-    About as simple an iterator as you can get:
-
-    returns the sequence of numbers from zero to 4
-    ( like xrange(4) )
+    Behaves exactly like xrange()
     """
     def __init__(self, *args):
         if not args:
