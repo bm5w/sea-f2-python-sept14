@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-code that tests the rot13 function defined in rot13.py
+code that tests the copyfile function defined in copyfile.py
 
 can be run with py.test
 """
