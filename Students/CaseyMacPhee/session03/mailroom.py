@@ -40,8 +40,9 @@ def printAll():
     for i in dreamDonors:
 
         content = unicode(printThankYou(i, dreamDonors.get(i)[-1]))
-        filename = "./" + i + ".txt"
-        print "Writing file name: ", filename
+        firstname, lastname = i.split(" ")
+        filename = "./" + firstname + "_" + lastname + ".txt"
+        print "Writing file: ", filename
         outfile = io.open(filename, 'w')
         outfile.write(content)
         outfile.close()
@@ -52,7 +53,7 @@ Enter a new donor name (full name) or...\n\
 Print thank you's for entire list? (type 'print all')\n: " 
 
     donorName = safe_input(prompt)
-    
+
 
     if donorName == "print all":
         print "got to the print all call"
@@ -61,6 +62,15 @@ Print thank you's for entire list? (type 'print all')\n: "
         pp = pprint.PrettyPrinter(indent=4)
         pp.pprint(dreamDonors.keys())
     else:
+        fullnameflag = False
+        while fullnameflag == False:
+            try:
+                firstname, lastname = donorName.split(" ")
+                break
+            except:
+                donorName = safe_input("Please try again with a full name, ie. first and last name seperated by a space.\n: ")
+                fullnameflag = False
+
         amount = safe_input("And for what amount?\n: ")
         while not amount.isalnum():
             amount = safe_input("Please enter a number value")
@@ -77,7 +87,12 @@ Print thank you's for entire list? (type 'print all')\n: "
 
         answer = safe_input("Would you like to print a thank you? (type 'y' for yes or 'n' for no)\n: ")
         if  answer == 'y':
-            printThankYou(donorName, donation)
+            firstname, lastname = donorName.split(" ")
+            filename = "./" + firstname + "_" + lastname + ".txt"
+            newfile = open(filename, 'w')
+            x = printThankYou(donorName, donation)
+            newfile.write(x)
+            newfile.close()
    
 
 def printThankYou(name,amount):
@@ -91,7 +106,7 @@ an integral part of our success in the coming year. We expect it to be a difficu
 but we truly derive strength from, and are encouraged by the outpouring of generosity from donors\
 like yourself. Feel free to subscribe to our mailing list, or check out our blog to follow our\
 progress, and to see your dollars in action. Expect a gift from us in the mail soon- just a\
-small token of our gratitude, and a way to show others your continued support of our efforts.
+small token of our gratitude, and a way to show others your continued support of our efforts.\
 Thank you again, from all of us here.
 """
 
