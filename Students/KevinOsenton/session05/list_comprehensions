@@ -1,0 +1,23 @@
+1.comprehension[0] is 'Lambs'
+comprehension[2] is 'Orangutans'
+
+2. len(feast) is 5
+len(comprehension) is 3
+
+3.comprehension[0] is 'lumberjack'
+len(comprehension[2]) is 16
+
+4. len(comprehension) is 6
+comprehension[0] is 'poached egg and lite spam'
+
+5. comprehension is {'a', 'b', 'c'}
+
+6. 'first' in dict_comprehension is False
+'FIRST' in dict_comprehension is False
+len(dict_of_weapons) is 5
+len(dict_comprehension) is 4
+
+7.
+def count_evens(nums):
+    evens = [x for x in nums if x%2 == 0]
+    return len(evens)
