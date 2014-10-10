@@ -26,10 +26,12 @@ class IterateMe_1(object):
 
 class IterateMe_2(object):
     def __init__(self, start, stop, step=1):
-        self.current = start
+        self.start = start
+        self.current = start - step
         self.stop = stop
         self.step = step
     def __iter__(self):
+        self.current = self.start
         return self
     def next(self):
         self.current += self.step
@@ -37,11 +39,3 @@ class IterateMe_2(object):
             return self.current
         else:
             raise StopIteration
-
-
-if __name__ == "__main__":
-
-    print "first version"
-    for i in IterateMe_1():
-        print i
-
