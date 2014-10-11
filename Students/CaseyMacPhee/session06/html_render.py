@@ -31,6 +31,9 @@ class Element(object):
             file_out.write(self.indent * ind + "<" + self.tag + attributes +">\n")
 
         for i in range(len(self.content_list)):
+
+            """Here the element is implicitly tested for a content list by attempting a write,
+             else each element's render method is called."""
             try:
                 file_out.write(self.indent * (ind + 1) + self.content_list[i] + "\n")
             except:
