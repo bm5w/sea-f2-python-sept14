@@ -27,7 +27,6 @@ def lucas(n):
         return 1
     else:
         return lucas(n-2) + lucas(n-1)
-print "lucas(8) = ", lucas(8)
 
 
 def sum_series(n, a=0, b=1):
@@ -38,12 +37,11 @@ def sum_series(n, a=0, b=1):
     Without optional parameters, sum_series is a fibonacci sequence.
     """
     if n == 1:
-        return 2
+        return a
     elif n == 2:
-        return 1
+        return b
     else:
-        return sum(n-2) + sum(n-1)
-print "lucas(8) = ", lucas(8)
+        return sum_series(n-2, a, b) + sum_series(n-1, a, b)
 
 
 if __name__ == "__main__":
@@ -53,17 +51,17 @@ if __name__ == "__main__":
 
     # Check fibonacci sequence values are as expected
     for i in range(1, len(fib_values)+1):
-        assert fib_values(i) == fibonacci(i)
+        assert fib_values[i-1] == fibonacci(i)
 
     # Check lucas sequence values are as expected
     for i in range(1, len(lucas_values)+1):
-        assert lucas_values(i) == lucas(i)
+        assert lucas_values[i-1] == lucas(i)
 
     # Check sum_series function, test list using default (fibonacci) values
-    for i in range(len(fib_values)):
-        assert sum_series(i) == fib_values(i-1)
+    for i in range(1, len(fib_values)+1):
+        assert sum_series(i) == fib_values[i-1]
 
     # Check sum_series function, test list using 2,1 (sum_series) values
-    for i in range(len(lucas_values)):
-        assert sum_series(i, 2, 1) == fib_values(i-1)
+    for i in range(1, len(lucas_values)+1):
+        assert sum_series(i, 2, 1) == lucas_values[i-1]
     print "All tests pass"
