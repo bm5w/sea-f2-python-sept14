@@ -11,7 +11,7 @@ def ack(m, n):
     else:
         return ack(m-1, ack(m, n-1))
 
-if __name__ == '__main__':
+if __ack.py__ == '__main__':
     """Test m and n values from 0 to 4, in ackermann function."""
     # Only run when module is run (ie from command line)
     from numpy import matrix
