@@ -10,6 +10,8 @@ def fibonacci(n):
     """Perform fibonacci series to find nth value in series.
     Parameter n is the number in the fibonacci series.
     """
+    if n <= 0:
+        return None
     if n == 1:
         return 0
     elif n == 2:
@@ -22,6 +24,8 @@ def lucas(n):
     """Perform lucas series to find nth value in series.
     Parameter n is the number in the lucas series.
     """
+    if n <= 0:
+        return None
     if n == 1:
         return 2
     elif n == 2:
@@ -37,6 +41,8 @@ def sum_series(n, a=0, b=1):
     Optional parameter b is the second value in the series.
     Without optional parameters, sum_series is a fibonacci sequence.
     """
+    if n <= 0:
+        return None
     if n == 1:
         return a
     elif n == 2:
@@ -65,4 +71,9 @@ if __name__ == "__main__":
     # Check sum_series function, test list using 2,1 (sum_series) values
     for i in range(1, len(lucas_values)+1):
         assert sum_series(i, 2, 1) == lucas_values[i-1]
+
+    # Check functions with negative n values.
+    assert sum_series(-1, 2, 1) is None
+    assert fibonacci(-4) is None
+    assert lucas(0) is None
     print "All tests pass"
