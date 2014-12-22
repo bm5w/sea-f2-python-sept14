@@ -46,7 +46,7 @@ def sum_series(n, a=0, b=1):
 print "lucas(8) = ", lucas(8)
 
 
-def __name__ == "__main__":
+if __name__ == "__main__":
     """Perform block of tests using assert statements to check functions."""
     fib_values = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
     lucas_values = [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123]
