@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Fibonacci Series
 Lucas Numbers
