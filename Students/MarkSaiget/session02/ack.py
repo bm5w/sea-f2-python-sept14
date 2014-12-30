@@ -39,4 +39,4 @@ if __name__ == '__main__':
             # print "ack({0}, {1})".format(m, n)
     assert ack(-1, 0) is None
     assert ack(2, -1) is None
-    print "All Tests Pass"
+    print u"All Tests Pass"
