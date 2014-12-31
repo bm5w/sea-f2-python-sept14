@@ -2,10 +2,6 @@
 """Do Session 3 Homework, Task 1."""
 
 
-def printList(list):
-    for i in list:
-        print i
-
 if __name__ == '__main__':
     """"Perform the tasks below as executable python script."""
 
@@ -13,32 +9,59 @@ if __name__ == '__main__':
     aList = [u'Apples', u'Pears', u'Oranges', u'Peaches']
 
     # Display the list.
-    printList(aList)
+    print aList
 
     # Ask the user for another fruit and add it to the end of the list.
-    aList.append(raw_input('Name another fruit to add to list-->'))
-    printList(aList)    # print list
+    aList.append(raw_input('Name another fruit to add to list-->').decode('\
+        unicode-escape'))
+    print aList   # print list
 
-    """
-    Ask the user for a number
-    display the number back to the user and
-    the fruit corresponding to that number (on a 1-is-first basis).
-    """
+    # Ask the user for a number display the number back to the user and
+    # the fruit corresponding to that number (on a 1-is-first basis).
     num = int(raw_input('Input a number-->'))
     print u'Number = {number}\nFruit at index {number} = {fruit}'\
         .format(number=num, fruit=aList[num-1])
 
-u"""
-Add another fruit to the beginning of the list using "+" and display the list.
-Add another fruit to the beginning of the list using insert() and display the list.
-Display all the fruits that begin with "P", using a for loop.
-Using the list created in series 1 above:
+    # Add another fruit to the beginning of the list using "+" and display the
+    # list.
+    aList = [u"Mangos"] + aList
+    print aList
 
-Display the list.
-Remove the last fruit from the list.
-Display the list.
-Ask the user for a fruit to delete and find it and delete it.
-(Bonus: Multiply the list times two. Keep asking until a match is found. Once found, delete all occurrences.)
+    # Add another fruit to the beginning of the list using insert() and display
+    # the list.
+    aList.insert(0, u"Kiwis")
+    print aList
+
+    # Display all the fruits that begin with "P", using a for loop.
+    for items in aList:
+        if items[0] == u'P':
+            print items
+
+    # Using the list created in series 1 above:
+    # Display the list.
+    print aList
+
+    # Remove the last fruit from the list.
+    aList.pop()
+    print aList
+
+    # Ask the user for a fruit to delete and find it and delete it.
+    aList.remove(raw_input('Input a fruit to delete-->').decode('unicode-escape\
+        '))
+
+    # (Bonus: Multiply the list times two. Keep asking until a match is found.
+    # Once found, delete all occurrences.)
+    aList = aList*2
+    print aList
+    flag = True
+    while flag:
+        temp = raw_input('Input fruit in list-->')
+        if temp in aList:
+            aList.remove(temp)
+            break
+    print aList
+u"""
+
 Again, using the list from series 1:
 
 Ask the user for input displaying a line like "Do you like apples?"
