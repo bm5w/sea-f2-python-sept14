@@ -39,6 +39,7 @@ if __name__ == '__main__':
 
     # Using the list created in series 1 above:
     # Display the list.
+    aList = [u'Apples', u'Pears', u'Oranges', u'Peaches']
     print aList
 
     # Remove the last fruit from the list.
@@ -56,18 +57,35 @@ if __name__ == '__main__':
     flag = True
     while flag:
         temp = raw_input('Input fruit in list-->')
-        if temp in aList:
+        while temp in aList[:]:
             aList.remove(temp)
-            break
+            flag = False
     print aList
+
+    # Again, using the list from series 1:
+    # Ask the user for input displaying a line like "Do you like apples?"
+    # for each fruit in the list (making the fruit all lowercase).
+    # For each "no", delete that fruit from the list.
+    # For any answer that is not "yes" or "no", prompt the user to answer with
+    # one of those two values (a while loop is good here):
+    aList = [u'Apples', u'Pears', u'Oranges', u'Peaches']
+    for fruit in aList[:]:
+        keepGoing = True
+        ans = raw_input("Do you like {fru}?-->".format(fru=fruit.lower())).\
+            lower()
+        while keepGoing:
+            if ans == 'no':
+                aList.remove(fruit)
+                keepGoing = False
+            elif ans == 'yes':
+                keepGoing = False
+                continue
+            else:
+                ans = raw_input("Please answer 'yes' or 'no', do you like {fru}?-->\
+                    ".format(fru=fruit.lower())).lower()
+        print aList
 u"""
 
-Again, using the list from series 1:
-
-Ask the user for input displaying a line like "Do you like apples?"
-for each fruit in the list (making the fruit all lowercase).
-For each "no", delete that fruit from the list.
-For any answer that is not "yes" or "no", prompt the user to answer with one of those two values (a while loop is good here):
 Display the list.
 Once more, using the list from series 1:
 
