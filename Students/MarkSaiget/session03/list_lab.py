@@ -1,5 +1,21 @@
 #! /usr/bin/env python
-"""Do Session 3 Homework, Task 1."""
+"""Do Session 3 Homework, Task 1.
+
+Notes:
+if you don't need the index, simply do:
+
+for item in seq:
+    ...
+If you need both the item and the index, use enumerate():
+
+for i, item in enumerate(seq):
+    ...
+
+If you need to loop through more than one list at once, use zip():
+
+for item1, item2 in zip(list1, list2):
+
+"""
 
 
 if __name__ == '__main__':
