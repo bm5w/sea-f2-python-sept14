@@ -84,11 +84,16 @@ if __name__ == '__main__':
                 ans = raw_input("Please answer 'yes' or 'no', do you like {fru}?-->\
                     ".format(fru=fruit.lower())).lower()
         print aList
-u"""
 
-Display the list.
-Once more, using the list from series 1:
-
-Make a copy of the list and reverse the letters in each fruit in the copy.
-Delete the last item of the original list. Display the original list and the copy.
-"""
+    # Once more, using the list from series 1:
+    # Make a copy of the list and reverse the letters in each fruit in the
+    # copy.
+    # Delete the last item of the original list. Display the original list and
+    # the copy.
+    aList = [u'Apples', u'Pears', u'Oranges', u'Peaches']
+    copy = []
+    for items in aList[:]:
+        copy.append(items[::-1])
+    aList.pop()
+    print aList
+    print copy
