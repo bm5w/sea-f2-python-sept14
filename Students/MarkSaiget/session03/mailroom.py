@@ -101,8 +101,8 @@ def createReport():
     # Get order sorted by total historical donation amount
     donors.sort(key=totalD)
     # Print Report
+    print "DONOR NAME\tTOTAL\t\tNUMBER OF DONATIONS\tAVERAGE DONATION"
     for donor in donors:
-        print "DONOR NAME\tTOTAL\t\tNUMBER OF DONATIONS\tAVERAGE DONATION"
         total = sum(donor[1:])
         number = len(donor)-1
         print "{name}\t{total}\t\t{number}\t\t\t{avg}".format(
@@ -129,7 +129,7 @@ if __name__ == '__main__':
     keepGoing = True
     while keepGoing:
         choice = raw_input("Would you like to 'Send a Thank You'"
-                           " or 'Create a Report'?")
+                           " or 'Create a Report'? (Type 'quit' to Quit.)-->")
         if choice.lower() == 'send a thank you':
             sendReport()
         if choice.lower() == 'create a report':
