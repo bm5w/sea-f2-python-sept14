@@ -35,7 +35,7 @@ def addDonor(name):
 
 
 def sendReport():
-    """If the user (you) selects 'Send a Thank You', provide output"""
+    """If the user (you) selects 'Send a Thank You', provide report."""
     """
     If the user types 'list', show them a list of the donor names and re-prompt
     If the user types a name not in the list, add that name to the data
@@ -100,10 +100,9 @@ def createReport():
     """
     # Get order sorted by total historical donation amount
     donors.sort(key=totalD)
-    print donors
     # Print Report
     for donor in donors:
-        print "Donor Name\tTotal\t\tNumber of Donations\tAverage Donation"
+        print "DONOR NAME\tTOTAL\t\tNUMBER OF DONATIONS\tAVERAGE DONATION"
         total = sum(donor[1:])
         number = len(donor)-1
         print "{name}\t{total}\t\t{number}\t\t\t{avg}".format(
