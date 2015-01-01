@@ -21,7 +21,13 @@ Put your main interaction into an if __name__ == '__main__' block.
 """
 
 
+def totalD(donorHistory):
+    """Given donor history (name followed by donation amounts) return total"""
+    return sum(donorHistory[1:])
+
+
 def addDonor(name):
+    """Add donor name to database"""
     numD = len(names)
     names.append(name.title())
     donors.append('donor{value}'.format(value=numD))
@@ -92,6 +98,16 @@ def createReport():
     above and below)
     After printing this report, return to the original prompt.
     """
+    # Get order sorted by total historical donation amount
+    donors.sort(key=totalD)
+    print donors
+    # Print Report
+    for donor in donors:
+        print "Donor Name\tTotal\t\tNumber of Donations\tAverage Donation"
+        total = sum(donor[1:])
+        number = len(donor)-1
+        print "{name}\t{total}\t\t{number}\t\t\t{avg}".format(
+            name=donor[0], total=total, number=number, avg=total/number)
 
 
 if __name__ == '__main__':
@@ -118,7 +134,7 @@ if __name__ == '__main__':
         if choice.lower() == 'send a thank you':
             sendReport()
         if choice.lower() == 'create a report':
-            createReport
+            createReport()
         if choice.lower() == 'quit':
             keepGoing = False
             break
