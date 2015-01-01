@@ -73,10 +73,9 @@ def sendReport():
                 # Verify is numeric and only one decimal
                 elif amt.replace('.', '', 1).isdigit():
                     # add amt to donation history
-                    donors[names.index(fullName)].append(amt)
+                    donors[names.index(fullName.title())].append(amt)
                     # Print Letter
-                    print """Dear {name}, \nThank you for your generous donation"
-                        " of ${amount}.\n\tSincerely,\n\tMark Saiget""".\
+                    print """Dear {name}, \nThank you for your generous donation of ${amount}.\n\tSincerely,\n\tMark Saiget""".\
                         format(name=fullName.title(), amount=amt)
                     keep = False
                     going = False
