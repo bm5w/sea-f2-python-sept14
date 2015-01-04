@@ -1,3 +1,4 @@
+"""solution to session 04, warmup one"""
 msg = []
 num = 6
 for item in range(1, num+1):
