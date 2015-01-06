@@ -26,6 +26,8 @@ see if you can use a dict to switch between the users selections
 Try to use a dict and the .format() method to do the letter as one big template
 rather than building up a big string in parts.
 """
+import os
+import io
 
 
 def totalD(donor):
@@ -36,6 +38,7 @@ def totalD(donor):
 def addDonor(name):
     """Add donor name to database"""
     donors[name.title()] = []
+
 
 def sendReport():
     """If the user (you) selects 'Send a Thank You', provide note."""
@@ -87,10 +90,27 @@ def sendReport():
                     # Print Letter
                     print """Dear {name}, \nThank you for your generous donation of ${amount}.\n\tSincerely,\n\tMark Saiget""".\
                         format(name=fullName.title(), amount=amt)
+                    createLetters()
                     keep = False
                     going = False
                 except ValueError:
                     print u"Input must be float, try again."
+
+
+def createLetters():
+    """write a full set of letters to everyone to individual files on disk"""
+    link = os.getcwd() + '/' + 'letters' + '/'
+    try:
+        print link
+        os.mkdir(link)
+    except OSError:
+        print "Path already exists."
+    for key, value in donors.iteritems():
+        outfile = io.open(link + '/' + key + '.txt', 'w')
+        text = u"""Dear {name}, \nThank you for your generous donation of ${amount}.\n\tSincerely,\n\tMark Saiget""".\
+            format(name=key.title(), amount=sum(donors[key]))
+        outfile.write(text)
+        outfile.close()
 
 
 def createReport():
@@ -131,13 +151,16 @@ if __name__ == '__main__':
 
     # Prompt to 'Send a Thank You' or 'Create a Report'.
     keepGoing = True
+    options = {'1': sendReport, '2': createReport}
     while keepGoing:
-        choice = raw_input("Would you like to 'Send a Thank You'"
-                           " or 'Create a Report'? (Type 'quit' to Quit.)-->")
-        if choice.lower() == 'send a thank you':
-            sendReport()
-        if choice.lower() == 'create a report':
-            createReport()
-        if choice.lower() == 'quit':
-            keepGoing = False
-            break
+        choice = raw_input("Would you like to:\n1)  Send a Thank You\n"
+                           "2)  Create a Report\n"
+                           "3)  Quit\n"
+                           "Input '1', '2', or '3'-->")
+        try:
+            options[choice]()
+        except (KeyError, TypeError):
+            print "Please enter a valid input value."
+        finally:
+            if choice == '3':
+                keepGoing = False
