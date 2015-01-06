@@ -35,7 +35,7 @@ def addDonor(name):
 
 
 def sendReport():
-    """If the user (you) selects 'Send a Thank You', provide report."""
+    """If the user (you) selects 'Send a Thank You', provide note."""
     """
     If the user types 'list', show them a list of the donor names and re-prompt
     If the user types a name not in the list, add that name to the data
@@ -77,7 +77,9 @@ def sendReport():
                     going = False
                     break
                 # Verify is numeric and only one decimal
-                elif amt.replace('.', '', 1).isdigit():
+                try:
+                    amt = float(amt)
+                # elif amt.replace('.', '', 1).isdigit():
                     # add amt to donation history
                     donors[names.index(fullName.title())].append(amt)
                     # Print Letter
@@ -85,9 +87,12 @@ def sendReport():
                         format(name=fullName.title(), amount=amt)
                     keep = False
                     going = False
+                except ValueError:
+                    print u"Input must be float, try again."
 
 
 def createReport():
+    """Create report with historical donation information"""
     """
     If the user (you) selected 'Create a Report' Print a list of your donors,
     sorted by total historical donation amount.
@@ -110,7 +115,6 @@ def createReport():
 
 
 if __name__ == '__main__':
-
     """A data structure that holds a list of your donors and a history
     of the amounts they have donated. This structure should be populated at
     first with at least five donors, with between 1 and 3 donations each
