@@ -17,8 +17,7 @@ def safe_input(string):
     except (EOFError, KeyboardInterrupt) as the_error:
         print the_error
         output = None
-    finally:
-        return output
+    return output
 
 if __name__ == '__main__':
     print safe_input("Input text-->")
