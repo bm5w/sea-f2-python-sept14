@@ -18,3 +18,6 @@ for value in dict.itervalues():
     if value == 'Mango':
         bool = True
 print bool
+
+# or
+print 'Mango' in d.values()

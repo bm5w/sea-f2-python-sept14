@@ -8,3 +8,7 @@ dict2 = {}
 for keys in dict.iterkeys():
     dict2[keys] = dict[keys].count("a")
 print dict2
+
+# better
+for key, val in dict.items():
+    dict2[key] = val.count('a')
