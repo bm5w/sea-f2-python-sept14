@@ -24,28 +24,18 @@ def cleanup(x):
 #     return lines
 
 
-def saveData(nameF, out):
-    file = io.open(nameF, 'w')
-    for line in out:
-        file.write(line+"\n")
-    file.close()
-
-
 if __name__ == '__main__':
-    try:
-        file = sys.argv[1]
-    except IndexError:
-        print "You must pass in a filename"
+    if len(sys.argv) < 2:
+        print "format: inFile outFile"
         sys.exit(1)
+    else:
+        file = sys.argv[1]
+        try:
+            outFile = sys.argv[2]
+        except IndexError:
+            outFile = file
     data = io.open(file, 'r', encoding='utf-8').readlines()
     out = map(string.strip, data)
     keepGoing = True
-    while keepGoing:
-        try:
-            outFile = raw_input("Input new filename")
-            keepGoing = False
-        except (EOFError, KeyboardInterrupt) as the_error:
-            print the_error
-            sys.exit[1]
-    saveData(outFile, out)
+    io.open(outFile, 'w').writelines(out)
 
