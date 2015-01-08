@@ -38,6 +38,7 @@ class Html(Element):
     tag = 'html'
 
     def render(self, file_out, ind=""):
+        file_out.write("<!DOCTYPE html>")
         Element.render(self, file_out, "")
 
 
@@ -72,19 +73,27 @@ class Title(OneLineTag):
 
 
 class SelfClosingTag(Element):
+
     def render(self, file_out, ind=""):
-        file_out.write("\n{ind}<{tag}>".format(ind=ind, tag=self.tag))
+        file_out.write("\n{ind}<{tag}".format(ind=ind, tag=self.tag))
+        for key, value in self.attributes.items():
+            file_out.write(" {key}=\"{value}\"".format(key=key, value=value))
+        file_out.write(" />")
+
+class Meta(SelfClosingTag):
+    tag = "meta"
 
 
 class Hr(SelfClosingTag):
-    tag = "hr /"
+    tag = "hr"
 
 
 class Br(SelfClosingTag):
-    tag = "br /"
+    tag = "br"
 
 
 class A(OneLineTag):
+    tag = "a"
     def __init__(self, link, content):
         OneLineTag.__init__(self, content, href=link)
         # or
