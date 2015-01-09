@@ -4,6 +4,7 @@
 fib_values = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144]
 lucas_values = [2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123]
 
+import unittest
 from series import fibonacci, lucas, sum_series
 
 
@@ -38,3 +39,6 @@ def test_neg():
     assert fibonacci(-4) is None
     assert lucas(0) is None
 
+
+if __name__ == '__main__':
+    unittest.main()

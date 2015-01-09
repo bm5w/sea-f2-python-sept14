@@ -1,6 +1,7 @@
 #! /usr/bin/env/ python
 """Tests ack.py can use py.test"""
 
+import unittest
 from ack import ack
 from numpy import matrix
 
@@ -17,9 +18,13 @@ def test_matrix():
             assert ack(m, n) == output[m, n]
             # print "ack({0}, {1})".format(m, n)
 
+
 def test_neg():
     assert ack(-1, 0) is None
+
 
 def test_neg2():
     assert ack(2, -1) is None
 
+if __name__ == '__main__':
+    unittest.main()

@@ -4,6 +4,7 @@
 this uses py.test
 """
 
+import unittest
 from rot13 import rot13
 
 
@@ -29,3 +30,6 @@ def test_2():
         Ahzoref naq chapghngvba ner abg rapbqrq.
         """
     assert rot13(test2) == test2_output
+
+if __name__ == '__main__':
+    unittest.main()
