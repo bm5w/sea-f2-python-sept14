@@ -48,6 +48,26 @@ class Circle(object):
     def __repr__(self):
         return 'Circle({radius})'.format(radius=self._radius)
 
-    @staticmethod
-    def add(a, b):
-        return Circle(a+b)
+    def __add__(a, b):
+        return Circle(a.radius+b.radius)
+
+    def __mul__(self, const):
+        return Circle(self.radius*const)
+
+    def __eq__(a, b):
+        return a.radius == b.radius
+
+    def __lt__(a, b):
+        return a.radius < b.radius
+
+    def __le__(a, b):
+        return a.radius <= b.radius
+
+    def __ne__(a, b):
+        return a.radius != b.radius
+
+    def __gt__(a, b):
+        return a.radius > b.radius
+
+    def __ge__(a, b):
+        return a.radius >= b.radius
